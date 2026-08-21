@@ -4,33 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#087d4c" />
-    <meta
-      name="description"
-      content="归心，深圳贝壳品质工具箱。"
-    />
+    <meta name="description" content="归心，深圳贝壳品质工具箱。" />
     <title>归心｜深圳贝壳品质工具箱</title>
     <style>
       :root {
-        --ink: #17231e;
-        --muted: #7a8880;
-        --line: #e3ebe6;
-        --paper: #f8faf8;
-        --white: #ffffff;
-        --green: #087d4c;
-        --green-dark: #05613a;
-        --green-soft: #eaf7ef;
+        --ink: #1f2c25;
+        --muted: #849188;
+        --line: #e6ece8;
+        --paper: #f3f7f4;
+        --green: #07804b;
+        --green-dark: #05653c;
       }
 
       * { box-sizing: border-box; }
-      html { background: var(--paper); }
+
+      html,
+      body { min-width: 320px; min-height: 100%; }
 
       body {
-        min-width: 320px;
-        min-height: 100vh;
+        min-height: 100dvh;
         margin: 0;
         background:
-          radial-gradient(circle at 50% -16%, rgba(115, 212, 161, 0.14), transparent 31rem),
-          var(--paper);
+          radial-gradient(circle at 50% 0, rgba(107, 206, 155, 0.16), transparent 30rem),
+          linear-gradient(180deg, #f7faf8 0%, var(--paper) 100%);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -42,44 +38,64 @@
 
       button { -webkit-tap-highlight-color: transparent; }
 
-      .shell {
+      .page {
+        display: grid;
+        min-height: 100dvh;
+        place-items: center;
+        padding: 32px;
+      }
+
+      .portal {
         display: flex;
-        width: min(100% - 48px, 1180px);
-        min-height: 100vh;
-        margin: 0 auto;
+        width: min(100%, 760px);
+        height: min(760px, calc(100dvh - 64px));
+        min-height: 520px;
         flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(7, 128, 75, 0.12);
+        border-radius: 28px;
+        background: #fff;
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.9) inset,
+          0 26px 68px rgba(25, 53, 37, 0.1),
+          0 6px 18px rgba(7, 128, 75, 0.05);
       }
 
       header {
         display: flex;
-        min-height: 92px;
+        min-height: 94px;
         align-items: center;
+        padding: 20px 28px;
         border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(100deg, rgba(230, 247, 237, 0.76), rgba(255, 255, 255, 0) 52%),
+          #fff;
       }
 
-      .brand-wrap {
+      .brand {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 11px;
       }
 
       .mark {
         display: grid;
-        width: 36px;
-        height: 36px;
+        width: 42px;
+        height: 42px;
         place-items: center;
-        border-radius: 12px;
-        background: var(--green);
+        border-radius: 14px;
+        background: linear-gradient(145deg, #0b9a5c, #057443);
+        box-shadow: 0 7px 16px rgba(7, 128, 75, 0.2);
         color: #fff;
-        font-size: 19px;
+        font-size: 20px;
         font-weight: 800;
         letter-spacing: -0.08em;
       }
 
-      .brand {
-        font-size: 23px;
+      .brand-name {
+        font-size: 24px;
         font-weight: 800;
-        letter-spacing: -0.055em;
+        letter-spacing: -0.07em;
       }
 
       .tagline {
@@ -91,111 +107,189 @@
 
       main {
         display: flex;
+        min-height: 0;
         flex: 1;
-        align-items: center;
-        padding: 72px 0;
       }
 
       .modules {
         display: grid;
         width: 100%;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 14px;
+        min-height: 0;
+        flex: 1;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        background: #fff;
       }
 
-      .card {
+      .tile {
+        position: relative;
         display: flex;
         min-width: 0;
-        min-height: 216px;
-        align-items: flex-start;
-        flex-direction: column;
-        justify-content: space-between;
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 20px;
-        background: var(--white);
+        min-height: 0;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: #fff;
         color: var(--ink);
         cursor: pointer;
-        text-align: left;
+        text-align: center;
         text-decoration: none;
-        transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        transition: background 160ms ease, box-shadow 160ms ease;
       }
 
-      .card:hover,
-      .card:focus-visible {
-        border-color: #9cd6b6;
-        box-shadow: 0 16px 32px rgba(5, 97, 58, 0.1);
+      .tile:nth-child(3n) { border-right: 0; }
+      .tile:nth-child(n + 7) { border-bottom: 0; }
+
+      .tile:hover,
+      .tile:focus-visible {
+        z-index: 1;
+        background: var(--surface);
+        box-shadow: inset 0 0 0 2px var(--edge);
         outline: 0;
-        transform: translateY(-3px);
       }
 
-      .card:active { transform: translateY(-1px); }
+      .tile:active { background: var(--surface); }
+
+      .tile-content {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        flex-direction: column;
+        gap: 12px;
+      }
 
       .icon {
         display: grid;
-        width: 46px;
-        height: 46px;
+        width: 54px;
+        height: 54px;
         place-items: center;
-        border-radius: 14px;
-        background: var(--green-soft);
-        color: var(--green-dark);
-        font-size: 18px;
+        border-radius: 18px;
+        background: var(--icon-bg);
+        box-shadow: 0 8px 18px var(--icon-shadow);
+        color: var(--accent);
+        font-size: 21px;
         font-weight: 800;
+        letter-spacing: -0.06em;
+        transition: transform 160ms ease;
       }
 
-      .card-bottom {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
+      .tile:hover .icon,
+      .tile:focus-visible .icon { transform: translateY(-2px) scale(1.04); }
 
-      .card-name {
+      .tile-name {
         min-width: 0;
-        margin: 0;
-        font-size: 17px;
+        padding: 0 10px;
+        font-size: 16px;
         font-weight: 750;
-        letter-spacing: -0.035em;
+        letter-spacing: -0.04em;
         line-height: 1.35;
       }
 
-      .arrow {
-        flex: 0 0 auto;
-        color: var(--green);
-        font-size: 20px;
+      .direction {
+        position: absolute;
+        top: 15px;
+        right: 16px;
+        color: var(--accent);
+        font-size: 17px;
+        font-weight: 500;
         line-height: 1;
       }
 
-      .empty { display: none; }
+      .complaint {
+        --accent: #07804b;
+        --surface: #effaf4;
+        --edge: rgba(7, 128, 75, 0.18);
+        --icon-bg: #e7f8ee;
+        --icon-shadow: rgba(7, 128, 75, 0.15);
+      }
+
+      .jury {
+        --accent: #2f76b9;
+        --surface: #f0f7ff;
+        --edge: rgba(47, 118, 185, 0.18);
+        --icon-bg: #e8f3ff;
+        --icon-shadow: rgba(47, 118, 185, 0.14);
+      }
+
+      .governance {
+        --accent: #b26e16;
+        --surface: #fff8eb;
+        --edge: rgba(178, 110, 22, 0.18);
+        --icon-bg: #fff1d8;
+        --icon-shadow: rgba(178, 110, 22, 0.13);
+      }
+
+      .supervision {
+        --accent: #b34d67;
+        --surface: #fff2f5;
+        --edge: rgba(179, 77, 103, 0.18);
+        --icon-bg: #fde9ee;
+        --icon-shadow: rgba(179, 77, 103, 0.13);
+      }
+
+      .performance {
+        --accent: #7355b6;
+        --surface: #f6f2ff;
+        --edge: rgba(115, 85, 182, 0.18);
+        --icon-bg: #eee8ff;
+        --icon-shadow: rgba(115, 85, 182, 0.13);
+      }
+
+      .placeholder {
+        cursor: default;
+        background: #fbfcfb;
+        color: #c2cbc5;
+      }
+
+      .placeholder:hover,
+      .placeholder:focus-visible {
+        z-index: auto;
+        background: #fbfcfb;
+        box-shadow: none;
+      }
+
+      .plus {
+        color: #c8d1cb;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 1;
+      }
 
       footer {
-        padding: 26px 0 34px;
+        min-height: 64px;
+        padding: 18px 24px;
         border-top: 1px solid var(--line);
+        background: #fafcfb;
         color: var(--muted);
         font-size: 13px;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
         text-align: center;
       }
 
       .overlay {
         position: fixed;
-        z-index: 10;
+        z-index: 20;
         inset: 0;
         display: grid;
         place-items: center;
         padding: 20px;
-        background: rgba(23, 35, 30, 0.3);
+        background: rgba(18, 37, 27, 0.34);
+        backdrop-filter: blur(3px);
       }
 
       .overlay[hidden] { display: none; }
 
       .dialog {
         position: relative;
-        width: min(100%, 540px);
-        border-radius: 18px;
+        width: min(100%, 520px);
+        border: 1px solid rgba(7, 128, 75, 0.12);
+        border-radius: 20px;
         padding: 26px;
         background: #fff;
-        box-shadow: 0 28px 80px rgba(23, 35, 30, 0.22);
+        box-shadow: 0 28px 84px rgba(19, 42, 29, 0.24);
       }
 
       .dialog h2 {
@@ -206,24 +300,24 @@
 
       .close {
         position: absolute;
-        top: 14px;
-        right: 14px;
+        top: 13px;
+        right: 13px;
         display: grid;
-        width: 32px;
-        height: 32px;
+        width: 34px;
+        height: 34px;
         place-items: center;
         border: 0;
-        border-radius: 9px;
+        border-radius: 10px;
         background: transparent;
         color: var(--muted);
         cursor: pointer;
-        font-size: 24px;
+        font-size: 25px;
         line-height: 1;
       }
 
       .close:hover,
       .close:focus-visible {
-        background: var(--paper);
+        background: #f1f5f2;
         color: var(--ink);
         outline: 0;
       }
@@ -242,7 +336,7 @@
         min-height: 150px;
         resize: vertical;
         border: 1px solid var(--line);
-        border-radius: 12px;
+        border-radius: 13px;
         padding: 13px;
         background: #fff;
         color: var(--ink);
@@ -251,15 +345,15 @@
       }
 
       textarea:focus {
-        border-color: #77c79e;
-        outline: 3px solid rgba(119, 199, 158, 0.18);
+        border-color: #78c79e;
+        outline: 3px solid rgba(120, 199, 158, 0.18);
       }
 
       .copy {
         width: 100%;
         margin-top: 14px;
         border: 0;
-        border-radius: 12px;
+        border-radius: 13px;
         padding: 12px 16px;
         background: var(--green);
         color: #fff;
@@ -274,24 +368,47 @@
         outline: 0;
       }
 
-      @media (max-width: 980px) {
-        main { padding: 52px 0; }
-        .modules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      @media (max-width: 800px) {
+        .page { padding: 22px; }
+        .portal {
+          width: min(100%, 680px);
+          height: min(740px, calc(100dvh - 44px));
+          border-radius: 24px;
+        }
       }
 
       @media (max-width: 600px) {
-        .shell { width: min(100% - 28px, 560px); }
-        header { min-height: 68px; }
-        .brand-wrap { gap: 8px; }
+        body { background: #fff; }
+
+        .page {
+          display: block;
+          padding: 0;
+        }
+
+        .portal {
+          width: 100%;
+          height: 100dvh;
+          min-height: 520px;
+          border: 0;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        header {
+          min-height: 72px;
+          padding: 14px max(16px, env(safe-area-inset-left)) 14px max(16px, env(safe-area-inset-right));
+        }
+
+        .brand { gap: 8px; }
 
         .mark {
-          width: 30px;
-          height: 30px;
-          border-radius: 10px;
+          width: 32px;
+          height: 32px;
+          border-radius: 11px;
           font-size: 15px;
         }
 
-        .brand { font-size: 19px; }
+        .brand-name { font-size: 20px; }
 
         .tagline {
           max-width: 190px;
@@ -301,127 +418,110 @@
           white-space: nowrap;
         }
 
-        main {
-          align-items: flex-start;
-          padding: 38px 0 48px;
-        }
-
-        .modules {
-          gap: 0;
-          overflow: hidden;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          border: 1px solid var(--line);
-          border-radius: 16px;
-          background: var(--white);
-        }
-
-        .card,
-        .empty {
-          min-height: 122px;
-          border: 0;
-          border-right: 1px solid var(--line);
-          border-bottom: 1px solid var(--line);
-          border-radius: 0;
-        }
-
-        .card {
-          align-items: center;
-          justify-content: center;
-          padding: 12px 6px;
-          text-align: center;
-          transition: background 140ms ease;
-        }
-
-        .card:hover,
-        .card:focus-visible {
-          border-color: var(--line);
-          box-shadow: none;
-          outline: 0;
-          transform: none;
-        }
-
-        .card:active { background: var(--green-soft); }
-
-        .card:nth-child(3n),
-        .empty:nth-child(3n) { border-right: 0; }
-
-        .modules > :nth-child(n + 7) { border-bottom: 0; }
+        .tile-content { gap: 8px; }
 
         .icon {
-          width: 36px;
-          height: 36px;
-          border-radius: 11px;
-          font-size: 15px;
+          width: 39px;
+          height: 39px;
+          border-radius: 13px;
+          font-size: 16px;
         }
 
-        .card-bottom {
-          display: block;
-          width: auto;
-          margin-top: 9px;
+        .tile-name {
+          padding: 0 4px;
+          font-size: 13px;
+          white-space: nowrap;
         }
 
-        .card-name { font-size: 13px; white-space: nowrap; }
-        .arrow { display: none; }
-
-        .empty {
-          display: block;
-          background: rgba(248, 250, 248, 0.72);
+        .direction {
+          top: 11px;
+          right: 11px;
+          font-size: 13px;
         }
+
+        .plus { font-size: 24px; }
 
         footer {
-          padding: 22px 0 28px;
+          min-height: 58px;
+          padding: 17px max(16px, env(safe-area-inset-right)) max(17px, env(safe-area-inset-bottom));
           font-size: 12px;
         }
 
         .dialog { padding: 22px 18px 18px; }
       }
+
+      @media (max-height: 620px) and (min-width: 601px) {
+        .page { padding: 18px; }
+        .portal { height: calc(100dvh - 36px); min-height: 460px; }
+        header { min-height: 76px; padding-top: 14px; padding-bottom: 14px; }
+        footer { min-height: 54px; padding: 14px; }
+        .icon { width: 44px; height: 44px; border-radius: 15px; font-size: 18px; }
+        .tile-content { gap: 8px; }
+      }
     </style>
   </head>
   <body>
-    <div class="shell">
-      <header>
-        <div class="brand-wrap" aria-label="归心">
-          <span class="mark" aria-hidden="true">归</span>
-          <strong class="brand">归心</strong>
-        </div>
-        <p class="tagline">回归到客户服务的初心</p>
-      </header>
+    <div class="page">
+      <div class="portal">
+        <header>
+          <div class="brand" aria-label="归心">
+            <span class="mark" aria-hidden="true">归</span>
+            <strong class="brand-name">归心</strong>
+          </div>
+          <p class="tagline">回归到客户服务的初心</p>
+        </header>
 
-      <main>
-        <section class="modules" aria-label="归心模块">
-          <button class="card" type="button" data-workspace="complaint" aria-label="客户投诉">
-            <span class="icon" aria-hidden="true">诉</span>
-            <span class="card-bottom"><span class="card-name">客户投诉</span><span class="arrow" aria-hidden="true">→</span></span>
-          </button>
+        <main>
+          <section class="modules" aria-label="归心九宫格">
+            <button class="tile complaint" type="button" data-workspace="complaint" aria-label="客户投诉">
+              <span class="direction" aria-hidden="true">→</span>
+              <span class="tile-content">
+                <span class="icon" aria-hidden="true">诉</span>
+                <span class="tile-name">客户投诉</span>
+              </span>
+            </button>
 
-          <a class="card" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced" aria-label="陪审团">
-            <span class="icon" aria-hidden="true">审</span>
-            <span class="card-bottom"><span class="card-name">陪审团</span><span class="arrow" aria-hidden="true">↗</span></span>
-          </a>
+            <a class="tile jury" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced" aria-label="陪审团">
+              <span class="direction" aria-hidden="true">↗</span>
+              <span class="tile-content">
+                <span class="icon" aria-hidden="true">审</span>
+                <span class="tile-name">陪审团</span>
+              </span>
+            </a>
 
-          <a class="card" href="https://app-moma.ke.com/cmy" aria-label="共治理事会">
-            <span class="icon" aria-hidden="true">治</span>
-            <span class="card-bottom"><span class="card-name">共治理事会</span><span class="arrow" aria-hidden="true">↗</span></span>
-          </a>
+            <a class="tile governance" href="https://app-moma.ke.com/cmy" aria-label="共治理事会">
+              <span class="direction" aria-hidden="true">↗</span>
+              <span class="tile-content">
+                <span class="icon" aria-hidden="true">治</span>
+                <span class="tile-name">共治理事会</span>
+              </span>
+            </a>
 
-          <a class="card" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" aria-label="监察一码通">
-            <span class="icon" aria-hidden="true">监</span>
-            <span class="card-bottom"><span class="card-name">监察一码通</span><span class="arrow" aria-hidden="true">↗</span></span>
-          </a>
+            <a class="tile supervision" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" aria-label="监察一码通">
+              <span class="direction" aria-hidden="true">↗</span>
+              <span class="tile-content">
+                <span class="icon" aria-hidden="true">监</span>
+                <span class="tile-name">监察一码通</span>
+              </span>
+            </a>
 
-          <button class="card" type="button" data-workspace="performance" aria-label="业绩争议">
-            <span class="icon" aria-hidden="true">绩</span>
-            <span class="card-bottom"><span class="card-name">业绩争议</span><span class="arrow" aria-hidden="true">→</span></span>
-          </button>
+            <button class="tile performance" type="button" data-workspace="performance" aria-label="业绩争议">
+              <span class="direction" aria-hidden="true">→</span>
+              <span class="tile-content">
+                <span class="icon" aria-hidden="true">绩</span>
+                <span class="tile-name">业绩争议</span>
+              </span>
+            </button>
 
-          <div class="empty" aria-hidden="true"></div>
-          <div class="empty" aria-hidden="true"></div>
-          <div class="empty" aria-hidden="true"></div>
-          <div class="empty" aria-hidden="true"></div>
-        </section>
-      </main>
+            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
+            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
+            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
+            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
+          </section>
+        </main>
 
-      <footer>深圳贝壳品质工具箱</footer>
+        <footer>深圳贝壳品质工具箱</footer>
+      </div>
     </div>
 
     <div class="overlay" id="workspace" hidden>
