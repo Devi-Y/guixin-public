@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#087f4f" />
+    <meta
+      name="description"
+      content="归心：深圳贝壳品质工具箱，直达常用客户服务与职能入口。"
+    />
+    <title>归心｜深圳贝壳品质工具箱</title>
+    <style>
+      :root {
+        --green: #087f4f;
+        --green-dark: #075d3c;
+        --green-soft: #ecf8f1;
+        --ink: #17221d;
+        --muted: #6c7971;
+        --line: #dce6df;
+        --paper: #fbfcfb;
+        --white: #ffffff;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--paper); }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 15% -15%, rgba(50, 182, 107, 0.13), transparent 32rem),
+          var(--paper);
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      a { color: inherit; }
+
+      .shell {
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 72px;
+        border-bottom: 1px solid rgba(220, 230, 223, 0.9);
+      }
+
+      .mark {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        border-radius: 10px;
+        background: var(--green);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .brand {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .tagline {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      main { padding: 72px 0 54px; }
+
+      h1 {
+        max-width: 640px;
+        margin: 0;
+        font-size: clamp(34px, 5vw, 54px);
+        letter-spacing: -0.065em;
+        line-height: 1.08;
+      }
+
+      .lead {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 58px;
+        margin-bottom: 14px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 21px;
+        letter-spacing: -0.04em;
+      }
+
+      .count {
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: var(--green-soft);
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .modules {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        display: flex;
+        min-width: 0;
+        min-height: 190px;
+        flex-direction: column;
+        align-items: flex-start;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        padding: 18px;
+        appearance: none;
+        background: var(--white);
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        text-decoration: none;
+        transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .card:hover,
+      .card:focus-visible {
+        border-color: #99d7b4;
+        box-shadow: 0 14px 30px rgba(7, 93, 60, 0.1);
+        outline: 0;
+        transform: translateY(-2px);
+      }
+
+      .icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border-radius: 13px;
+        background: var(--green-soft);
+        color: var(--green);
+        font-size: 21px;
+      }
+
+      .card h3 {
+        margin: 19px 0 0;
+        font-size: 16px;
+        letter-spacing: -0.025em;
+        line-height: 1.35;
+      }
+
+      .card p {
+        min-height: 3em;
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .action {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: auto;
+        padding-top: 13px;
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 750;
+      }
+
+      footer {
+        padding: 0 0 34px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .overlay {
+        position: fixed;
+        z-index: 10;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        background: rgba(14, 28, 20, 0.44);
+      }
+
+      .overlay[hidden] { display: none; }
+
+      .dialog {
+        width: min(520px, 100%);
+        border-radius: 18px;
+        padding: 24px;
+        background: var(--white);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+      }
+
+      .dialog-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .dialog h2 { font-size: 22px; }
+
+      .dialog p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .close {
+        width: 32px;
+        height: 32px;
+        flex: none;
+        border: 0;
+        border-radius: 10px;
+        background: #f1f4f2;
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      label {
+        display: block;
+        margin-top: 20px;
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 148px;
+        margin-top: 8px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        color: var(--ink);
+        font: inherit;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .dialog-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 14px;
+      }
+
+      .copy {
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        background: var(--green);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 980px) {
+        .modules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 600px) {
+        .shell { width: min(100% - 28px, 560px); }
+        header { min-height: 64px; gap: 10px; }
+        .mark { width: 28px; height: 28px; border-radius: 9px; font-size: 15px; }
+        .brand { font-size: 18px; }
+        .tagline { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+        main { padding: 42px 0 38px; }
+        .lead { margin-top: 13px; font-size: 14px; }
+        .section-head { margin-top: 42px; }
+        .modules { gap: 0; overflow: hidden; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 16px; }
+        .card { min-height: 122px; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; padding: 12px 7px; align-items: center; text-align: center; }
+        .card:nth-child(3n) { border-right: 0; }
+        .card h3 { margin-top: 8px; font-size: 13px; white-space: nowrap; }
+        .card p { display: none; }
+        .icon { width: 34px; height: 34px; border-radius: 10px; font-size: 17px; }
+        .action { margin-top: 7px; padding-top: 0; font-size: 11px; }
+        .empty { display: grid; min-height: 122px; place-items: center; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #aab4ae; font-size: 12px; }
+        .empty:nth-child(3n) { border-right: 0; }
+        .empty span { display: block; font-size: 20px; line-height: 1; }
+      }
+
+      @media (min-width: 601px) { .empty { display: none; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <span class="mark" aria-hidden="true">归</span>
+        <strong class="brand">归心</strong>
+        <p class="tagline">回归到客户服务的初心</p>
+      </header>
+
+      <main>
+        <h1>今天要处理什么？</h1>
+        <p class="lead">常用入口，点一下就开始。</p>
+
+        <div class="section-head">
+          <h2>常用模块</h2>
+          <span class="count">5 个可用</span>
+        </div>
+
+        <section class="modules" aria-label="归心常用模块">
+          <button class="card" type="button" data-workspace="complaint">
+            <span class="icon" aria-hidden="true">☻</span>
+            <h3>客户投诉</h3>
+            <p>整理客诉事实并生成回复</p>
+            <span class="action">立即开始 <span aria-hidden="true">→</span></span>
+          </button>
+
+          <a class="card" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced">
+            <span class="icon" aria-hidden="true">⚖</span>
+            <h3>陪审团</h3>
+            <p>处理争议与分歧</p>
+            <span class="action">打开链接 <span aria-hidden="true">↗</span></span>
+          </a>
+
+          <a class="card" href="https://app-moma.ke.com/cmy">
+            <span class="icon" aria-hidden="true">⌂</span>
+            <h3>共治理事会</h3>
+            <p>协同区域问题</p>
+            <span class="action">打开链接 <span aria-hidden="true">↗</span></span>
+          </a>
+
+          <a class="card" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0">
+            <span class="icon" aria-hidden="true">◉</span>
+            <h3>监察一码通</h3>
+            <p>提交监察问题</p>
+            <span class="action">打开链接 <span aria-hidden="true">↗</span></span>
+          </a>
+
+          <button class="card" type="button" data-workspace="performance">
+            <span class="icon" aria-hidden="true">≋</span>
+            <h3>业绩争议</h3>
+            <p>核对规则和证据，准备沟通</p>
+            <span class="action">立即开始 <span aria-hidden="true">→</span></span>
+          </button>
+
+          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
+          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
+          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
+          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
+        </section>
+      </main>
+
+      <footer>深圳贝壳品质工具箱</footer>
+    </div>
+
+    <div class="overlay" id="workspace" hidden>
+      <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-title">
+        <div class="dialog-top">
+          <div>
+            <h2 id="workspace-title"></h2>
+            <p id="workspace-description"></p>
+          </div>
+          <button class="close" type="button" aria-label="关闭">×</button>
+        </div>
+        <label for="facts">记录事实</label>
+        <textarea id="facts" placeholder="写下时间、人物、原话和已做处理"></textarea>
+        <div class="dialog-actions"><button class="copy" type="button">复制整理内容</button></div>
+      </section>
+    </div>
+
+    <script>
+      const workspace = document.getElementById('workspace');
+      const title = document.getElementById('workspace-title');
+      const description = document.getElementById('workspace-description');
+      const facts = document.getElementById('facts');
+      const copyButton = document.querySelector('.copy');
+      const definitions = {
+        complaint: {
+          title: '客户投诉',
+          description: '整理客诉事实并生成回复',
+          prompt: '请根据以下客诉事实，整理一份清晰、克制、可执行的回复。\\n\\n'
+        },
+        performance: {
+          title: '业绩争议',
+          description: '核对规则和证据，准备沟通',
+          prompt: '请根据以下事实、规则和双方说法，整理一份业绩争议沟通要点。\\n\\n'
+        }
+      };
+      let active = null;
+
+      document.querySelectorAll('[data-workspace]').forEach((button) => {
+        button.addEventListener('click', () => {
+          active = definitions[button.dataset.workspace];
+          title.textContent = active.title;
+          description.textContent = active.description;
+          facts.value = '';
+          workspace.hidden = false;
+          facts.focus();
+        });
+      });
+
+      function closeWorkspace() {
+        workspace.hidden = true;
+        active = null;
+      }
+
+      document.querySelector('.close').addEventListener('click', closeWorkspace);
+      workspace.addEventListener('click', (event) => {
+        if (event.target === workspace) closeWorkspace();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !workspace.hidden) closeWorkspace();
+      });
+
+      copyButton.addEventListener('click', async () => {
+        if (!active) return;
+        const text = active.prompt + facts.value.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          copyButton.textContent = '已复制';
+        } catch {
+          facts.select();
+          document.execCommand('copy');
+          copyButton.textContent = '已复制';
+        }
+        setTimeout(() => { copyButton.textContent = '复制整理内容'; }, 1400);
+      });
+    </script>
+  </body>
+</html>
