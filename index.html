@@ -3,137 +3,119 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#087f4f" />
+    <meta name="theme-color" content="#087d4c" />
     <meta
       name="description"
-      content="归心：深圳贝壳品质工具箱，直达常用客户服务与职能入口。"
+      content="归心，深圳贝壳品质工具箱。"
     />
     <title>归心｜深圳贝壳品质工具箱</title>
     <style>
       :root {
-        --green: #087f4f;
-        --green-dark: #075d3c;
-        --green-soft: #ecf8f1;
-        --ink: #17221d;
-        --muted: #6c7971;
-        --line: #dce6df;
-        --paper: #fbfcfb;
+        --ink: #17231e;
+        --muted: #7a8880;
+        --line: #e3ebe6;
+        --paper: #f8faf8;
         --white: #ffffff;
+        --green: #087d4c;
+        --green-dark: #05613a;
+        --green-soft: #eaf7ef;
       }
 
       * { box-sizing: border-box; }
-
       html { background: var(--paper); }
 
       body {
         min-width: 320px;
+        min-height: 100vh;
         margin: 0;
-        color: var(--ink);
         background:
-          radial-gradient(circle at 15% -15%, rgba(50, 182, 107, 0.13), transparent 32rem),
+          radial-gradient(circle at 50% -16%, rgba(115, 212, 161, 0.14), transparent 31rem),
           var(--paper);
-        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
 
-      a { color: inherit; }
+      button,
+      textarea { font: inherit; }
+
+      button { -webkit-tap-highlight-color: transparent; }
 
       .shell {
-        width: min(1160px, calc(100% - 40px));
+        display: flex;
+        width: min(100% - 48px, 1180px);
+        min-height: 100vh;
         margin: 0 auto;
+        flex-direction: column;
       }
 
       header {
         display: flex;
+        min-height: 92px;
         align-items: center;
-        gap: 14px;
-        min-height: 72px;
-        border-bottom: 1px solid rgba(220, 230, 223, 0.9);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
       }
 
       .mark {
         display: grid;
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         place-items: center;
-        border-radius: 10px;
+        border-radius: 12px;
         background: var(--green);
         color: #fff;
-        font-size: 17px;
+        font-size: 19px;
         font-weight: 800;
+        letter-spacing: -0.08em;
       }
 
       .brand {
-        font-size: 20px;
+        font-size: 23px;
         font-weight: 800;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.055em;
       }
 
       .tagline {
-        margin: 0;
+        margin: 0 0 0 auto;
         color: var(--muted);
-        font-size: 13px;
+        font-size: 14px;
+        letter-spacing: 0.015em;
       }
 
-      main { padding: 72px 0 54px; }
-
-      h1 {
-        max-width: 640px;
-        margin: 0;
-        font-size: clamp(34px, 5vw, 54px);
-        letter-spacing: -0.065em;
-        line-height: 1.08;
-      }
-
-      .lead {
-        margin: 18px 0 0;
-        color: var(--muted);
-        font-size: 16px;
-        line-height: 1.7;
-      }
-
-      .section-head {
+      main {
         display: flex;
+        flex: 1;
         align-items: center;
-        justify-content: space-between;
-        margin-top: 58px;
-        margin-bottom: 14px;
-      }
-
-      h2 {
-        margin: 0;
-        font-size: 21px;
-        letter-spacing: -0.04em;
-      }
-
-      .count {
-        padding: 5px 10px;
-        border-radius: 999px;
-        background: var(--green-soft);
-        color: var(--green-dark);
-        font-size: 12px;
-        font-weight: 700;
+        padding: 72px 0;
       }
 
       .modules {
         display: grid;
+        width: 100%;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 12px;
+        gap: 14px;
       }
 
       .card {
         display: flex;
         min-width: 0;
-        min-height: 190px;
-        flex-direction: column;
+        min-height: 216px;
         align-items: flex-start;
+        flex-direction: column;
+        justify-content: space-between;
         border: 1px solid var(--line);
-        border-radius: 17px;
-        padding: 18px;
-        appearance: none;
+        border-radius: 18px;
+        padding: 20px;
         background: var(--white);
         color: var(--ink);
         cursor: pointer;
-        font: inherit;
         text-align: left;
         text-decoration: none;
         transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
@@ -141,51 +123,55 @@
 
       .card:hover,
       .card:focus-visible {
-        border-color: #99d7b4;
-        box-shadow: 0 14px 30px rgba(7, 93, 60, 0.1);
+        border-color: #9cd6b6;
+        box-shadow: 0 16px 32px rgba(5, 97, 58, 0.1);
         outline: 0;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
       }
+
+      .card:active { transform: translateY(-1px); }
 
       .icon {
         display: grid;
-        width: 42px;
-        height: 42px;
+        width: 46px;
+        height: 46px;
         place-items: center;
-        border-radius: 13px;
+        border-radius: 14px;
         background: var(--green-soft);
-        color: var(--green);
-        font-size: 21px;
+        color: var(--green-dark);
+        font-size: 18px;
+        font-weight: 800;
       }
 
-      .card h3 {
-        margin: 19px 0 0;
-        font-size: 16px;
-        letter-spacing: -0.025em;
+      .card-bottom {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .card-name {
+        min-width: 0;
+        margin: 0;
+        font-size: 17px;
+        font-weight: 750;
+        letter-spacing: -0.035em;
         line-height: 1.35;
       }
 
-      .card p {
-        min-height: 3em;
-        margin: 7px 0 0;
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.5;
+      .arrow {
+        flex: 0 0 auto;
+        color: var(--green);
+        font-size: 20px;
+        line-height: 1;
       }
 
-      .action {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-top: auto;
-        padding-top: 13px;
-        color: var(--green-dark);
-        font-size: 12px;
-        font-weight: 750;
-      }
+      .empty { display: none; }
 
       footer {
-        padding: 0 0 34px;
+        padding: 26px 0 34px;
+        border-top: 1px solid var(--line);
         color: var(--muted);
         font-size: 13px;
         text-align: center;
@@ -197,173 +183,241 @@
         inset: 0;
         display: grid;
         place-items: center;
-        padding: 18px;
-        background: rgba(14, 28, 20, 0.44);
+        padding: 20px;
+        background: rgba(23, 35, 30, 0.3);
       }
 
       .overlay[hidden] { display: none; }
 
       .dialog {
-        width: min(520px, 100%);
+        position: relative;
+        width: min(100%, 540px);
         border-radius: 18px;
-        padding: 24px;
-        background: var(--white);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+        padding: 26px;
+        background: #fff;
+        box-shadow: 0 28px 80px rgba(23, 35, 30, 0.22);
       }
 
-      .dialog-top {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .dialog h2 { font-size: 22px; }
-
-      .dialog p {
-        margin: 8px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.55;
+      .dialog h2 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: -0.04em;
       }
 
       .close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        display: grid;
         width: 32px;
         height: 32px;
-        flex: none;
+        place-items: center;
         border: 0;
-        border-radius: 10px;
-        background: #f1f4f2;
-        color: var(--ink);
+        border-radius: 9px;
+        background: transparent;
+        color: var(--muted);
         cursor: pointer;
-        font-size: 20px;
+        font-size: 24px;
+        line-height: 1;
       }
 
-      label {
-        display: block;
-        margin-top: 20px;
+      .close:hover,
+      .close:focus-visible {
+        background: var(--paper);
         color: var(--ink);
+        outline: 0;
+      }
+
+      .dialog label {
+        display: block;
+        margin: 22px 0 8px;
+        color: var(--muted);
         font-size: 13px;
         font-weight: 700;
       }
 
       textarea {
+        display: block;
         width: 100%;
-        min-height: 148px;
-        margin-top: 8px;
+        min-height: 150px;
         resize: vertical;
         border: 1px solid var(--line);
         border-radius: 12px;
-        padding: 12px;
+        padding: 13px;
+        background: #fff;
         color: var(--ink);
-        font: inherit;
         font-size: 14px;
-        line-height: 1.55;
+        line-height: 1.6;
       }
 
-      .dialog-actions {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 14px;
+      textarea:focus {
+        border-color: #77c79e;
+        outline: 3px solid rgba(119, 199, 158, 0.18);
       }
 
       .copy {
+        width: 100%;
+        margin-top: 14px;
         border: 0;
-        border-radius: 10px;
-        padding: 10px 14px;
+        border-radius: 12px;
+        padding: 12px 16px;
         background: var(--green);
         color: #fff;
         cursor: pointer;
-        font: inherit;
-        font-size: 13px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 750;
+      }
+
+      .copy:hover,
+      .copy:focus-visible {
+        background: var(--green-dark);
+        outline: 0;
       }
 
       @media (max-width: 980px) {
+        main { padding: 52px 0; }
         .modules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       }
 
       @media (max-width: 600px) {
         .shell { width: min(100% - 28px, 560px); }
-        header { min-height: 64px; gap: 10px; }
-        .mark { width: 28px; height: 28px; border-radius: 9px; font-size: 15px; }
-        .brand { font-size: 18px; }
-        .tagline { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
-        main { padding: 42px 0 38px; }
-        .lead { margin-top: 13px; font-size: 14px; }
-        .section-head { margin-top: 42px; }
-        .modules { gap: 0; overflow: hidden; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 16px; }
-        .card { min-height: 122px; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; padding: 12px 7px; align-items: center; text-align: center; }
-        .card:nth-child(3n) { border-right: 0; }
-        .card h3 { margin-top: 8px; font-size: 13px; white-space: nowrap; }
-        .card p { display: none; }
-        .icon { width: 34px; height: 34px; border-radius: 10px; font-size: 17px; }
-        .action { margin-top: 7px; padding-top: 0; font-size: 11px; }
-        .empty { display: grid; min-height: 122px; place-items: center; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #aab4ae; font-size: 12px; }
-        .empty:nth-child(3n) { border-right: 0; }
-        .empty span { display: block; font-size: 20px; line-height: 1; }
-      }
+        header { min-height: 68px; }
+        .brand-wrap { gap: 8px; }
 
-      @media (min-width: 601px) { .empty { display: none; } }
+        .mark {
+          width: 30px;
+          height: 30px;
+          border-radius: 10px;
+          font-size: 15px;
+        }
+
+        .brand { font-size: 19px; }
+
+        .tagline {
+          max-width: 190px;
+          overflow: hidden;
+          font-size: 11px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        main {
+          align-items: flex-start;
+          padding: 38px 0 48px;
+        }
+
+        .modules {
+          gap: 0;
+          overflow: hidden;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          background: var(--white);
+        }
+
+        .card,
+        .empty {
+          min-height: 122px;
+          border: 0;
+          border-right: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
+          border-radius: 0;
+        }
+
+        .card {
+          align-items: center;
+          justify-content: center;
+          padding: 12px 6px;
+          text-align: center;
+          transition: background 140ms ease;
+        }
+
+        .card:hover,
+        .card:focus-visible {
+          border-color: var(--line);
+          box-shadow: none;
+          outline: 0;
+          transform: none;
+        }
+
+        .card:active { background: var(--green-soft); }
+
+        .card:nth-child(3n),
+        .empty:nth-child(3n) { border-right: 0; }
+
+        .modules > :nth-child(n + 7) { border-bottom: 0; }
+
+        .icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 11px;
+          font-size: 15px;
+        }
+
+        .card-bottom {
+          display: block;
+          width: auto;
+          margin-top: 9px;
+        }
+
+        .card-name { font-size: 13px; white-space: nowrap; }
+        .arrow { display: none; }
+
+        .empty {
+          display: block;
+          background: rgba(248, 250, 248, 0.72);
+        }
+
+        footer {
+          padding: 22px 0 28px;
+          font-size: 12px;
+        }
+
+        .dialog { padding: 22px 18px 18px; }
+      }
     </style>
   </head>
   <body>
     <div class="shell">
       <header>
-        <span class="mark" aria-hidden="true">归</span>
-        <strong class="brand">归心</strong>
+        <div class="brand-wrap" aria-label="归心">
+          <span class="mark" aria-hidden="true">归</span>
+          <strong class="brand">归心</strong>
+        </div>
         <p class="tagline">回归到客户服务的初心</p>
       </header>
 
       <main>
-        <h1>今天要处理什么？</h1>
-        <p class="lead">常用入口，点一下就开始。</p>
-
-        <div class="section-head">
-          <h2>常用模块</h2>
-          <span class="count">5 个可用</span>
-        </div>
-
-        <section class="modules" aria-label="归心常用模块">
-          <button class="card" type="button" data-workspace="complaint">
-            <span class="icon" aria-hidden="true">☻</span>
-            <h3>客户投诉</h3>
-            <p>整理客诉事实并生成回复</p>
-            <span class="action">立即开始 <span aria-hidden="true">→</span></span>
+        <section class="modules" aria-label="归心模块">
+          <button class="card" type="button" data-workspace="complaint" aria-label="客户投诉">
+            <span class="icon" aria-hidden="true">诉</span>
+            <span class="card-bottom"><span class="card-name">客户投诉</span><span class="arrow" aria-hidden="true">→</span></span>
           </button>
 
-          <a class="card" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced">
-            <span class="icon" aria-hidden="true">⚖</span>
-            <h3>陪审团</h3>
-            <p>处理争议与分歧</p>
-            <span class="action">打开链接 <span aria-hidden="true">↗</span></span>
+          <a class="card" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced" aria-label="陪审团">
+            <span class="icon" aria-hidden="true">审</span>
+            <span class="card-bottom"><span class="card-name">陪审团</span><span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="card" href="https://app-moma.ke.com/cmy">
-            <span class="icon" aria-hidden="true">⌂</span>
-            <h3>共治理事会</h3>
-            <p>协同区域问题</p>
-            <span class="action">打开链接 <span aria-hidden="true">↗</span></span>
+          <a class="card" href="https://app-moma.ke.com/cmy" aria-label="共治理事会">
+            <span class="icon" aria-hidden="true">治</span>
+            <span class="card-bottom"><span class="card-name">共治理事会</span><span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="card" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0">
-            <span class="icon" aria-hidden="true">◉</span>
-            <h3>监察一码通</h3>
-            <p>提交监察问题</p>
-            <span class="action">打开链接 <span aria-hidden="true">↗</span></span>
+          <a class="card" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" aria-label="监察一码通">
+            <span class="icon" aria-hidden="true">监</span>
+            <span class="card-bottom"><span class="card-name">监察一码通</span><span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <button class="card" type="button" data-workspace="performance">
-            <span class="icon" aria-hidden="true">≋</span>
-            <h3>业绩争议</h3>
-            <p>核对规则和证据，准备沟通</p>
-            <span class="action">立即开始 <span aria-hidden="true">→</span></span>
+          <button class="card" type="button" data-workspace="performance" aria-label="业绩争议">
+            <span class="icon" aria-hidden="true">绩</span>
+            <span class="card-bottom"><span class="card-name">业绩争议</span><span class="arrow" aria-hidden="true">→</span></span>
           </button>
 
-          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
-          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
-          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
-          <div class="empty" aria-hidden="true"><span>＋</span>待接入</div>
+          <div class="empty" aria-hidden="true"></div>
+          <div class="empty" aria-hidden="true"></div>
+          <div class="empty" aria-hidden="true"></div>
+          <div class="empty" aria-hidden="true"></div>
         </section>
       </main>
 
@@ -372,75 +426,71 @@
 
     <div class="overlay" id="workspace" hidden>
       <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-title">
-        <div class="dialog-top">
-          <div>
-            <h2 id="workspace-title"></h2>
-            <p id="workspace-description"></p>
-          </div>
-          <button class="close" type="button" aria-label="关闭">×</button>
-        </div>
-        <label for="facts">记录事实</label>
-        <textarea id="facts" placeholder="写下时间、人物、原话和已做处理"></textarea>
-        <div class="dialog-actions"><button class="copy" type="button">复制整理内容</button></div>
+        <button class="close" type="button" aria-label="关闭">×</button>
+        <h2 id="workspace-title"></h2>
+        <label for="workspace-input">记录事实</label>
+        <textarea id="workspace-input"></textarea>
+        <button class="copy" type="button" id="copy-workspace">复制给 AI 助手</button>
       </section>
     </div>
 
     <script>
-      const workspace = document.getElementById('workspace');
-      const title = document.getElementById('workspace-title');
-      const description = document.getElementById('workspace-description');
-      const facts = document.getElementById('facts');
-      const copyButton = document.querySelector('.copy');
-      const definitions = {
+      const workspaces = {
         complaint: {
-          title: '客户投诉',
-          description: '整理客诉事实并生成回复',
-          prompt: '请根据以下客诉事实，整理一份清晰、克制、可执行的回复。\\n\\n'
+          title: "客户投诉",
+          placeholder: "写下时间、人物、客户原话和已做处理",
+          prompt: "请以房地产客户服务主管的视角，整理以下客户投诉。只基于已提供的事实，不替任何一方下结论。请按事实时间线、客户核心诉求、需要核实的信息、责任边界、今天能执行的处理方案和对客户的回复话术输出。",
         },
         performance: {
-          title: '业绩争议',
-          description: '核对规则和证据，准备沟通',
-          prompt: '请根据以下事实、规则和双方说法，整理一份业绩争议沟通要点。\\n\\n'
-        }
+          title: "业绩争议",
+          placeholder: "写下时间、规则原文和双方说法",
+          prompt: "请中立整理以下业绩争议，不替任何一方判定归属。请按关键时间线、适用规则或制度、各方主张、证据清单、仍有争议的事实、需要谁确认和两种低冲突的沟通话术输出。规则原文未提供时，请明确写出需要补充规则原文。",
+        },
       };
-      let active = null;
 
-      document.querySelectorAll('[data-workspace]').forEach((button) => {
-        button.addEventListener('click', () => {
-          active = definitions[button.dataset.workspace];
-          title.textContent = active.title;
-          description.textContent = active.description;
-          facts.value = '';
-          workspace.hidden = false;
-          facts.focus();
+      const overlay = document.getElementById("workspace");
+      const title = document.getElementById("workspace-title");
+      const input = document.getElementById("workspace-input");
+      const copy = document.getElementById("copy-workspace");
+      let activeWorkspace = null;
+
+      function closeWorkspace() {
+        overlay.hidden = true;
+        activeWorkspace = null;
+      }
+
+      document.querySelectorAll("[data-workspace]").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeWorkspace = workspaces[button.dataset.workspace];
+          title.textContent = activeWorkspace.title;
+          input.placeholder = activeWorkspace.placeholder;
+          input.value = "";
+          copy.textContent = "复制给 AI 助手";
+          overlay.hidden = false;
+          input.focus();
         });
       });
 
-      function closeWorkspace() {
-        workspace.hidden = true;
-        active = null;
-      }
-
-      document.querySelector('.close').addEventListener('click', closeWorkspace);
-      workspace.addEventListener('click', (event) => {
-        if (event.target === workspace) closeWorkspace();
+      document.querySelector(".close").addEventListener("click", closeWorkspace);
+      overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) closeWorkspace();
       });
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !workspace.hidden) closeWorkspace();
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !overlay.hidden) closeWorkspace();
       });
 
-      copyButton.addEventListener('click', async () => {
-        if (!active) return;
-        const text = active.prompt + facts.value.trim();
+      copy.addEventListener("click", async () => {
+        if (!activeWorkspace) return;
+        const content = activeWorkspace.prompt + "\n\n" + (input.value.trim() || "请填写事实。");
         try {
-          await navigator.clipboard.writeText(text);
-          copyButton.textContent = '已复制';
+          await navigator.clipboard.writeText(content);
+          copy.textContent = "已复制";
         } catch {
-          facts.select();
-          document.execCommand('copy');
-          copyButton.textContent = '已复制';
+          input.value = content;
+          input.select();
+          document.execCommand("copy");
+          copy.textContent = "已复制";
         }
-        setTimeout(() => { copyButton.textContent = '复制整理内容'; }, 1400);
       });
     </script>
   </body>
