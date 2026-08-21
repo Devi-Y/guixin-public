@@ -437,7 +437,7 @@
       </header>
 
       <main>
-        <section class="tool-grid" aria-label="归心九宫格模块">
+        <section class="tool-grid" id="tool-grid" aria-label="归心九宫格模块">
           <button class="tool-card complaint chat is-primary" type="button" data-workspace="complaint" aria-label="客户投诉，立即开始">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg></span>
             <h2>客户投诉</h2>
@@ -493,7 +493,68 @@
       </section>
     </div>
 
+    <script src="./tools.js"></script>
     <script>
+      const iconSvgs = {
+        "message-square": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg>',
+        "user-round": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>',
+        landmark: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></svg>',
+        eye: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>',
+        scale: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></svg>',
+      };
+
+      const toolGrid = document.getElementById("tool-grid");
+
+      function createToolElement(tool) {
+        if (tool.kind === "placeholder") {
+          const placeholder = document.createElement("div");
+          placeholder.className = "placeholder";
+          placeholder.setAttribute("aria-label", "预留模块位");
+          const plus = document.createElement("span");
+          plus.setAttribute("aria-hidden", "true");
+          plus.textContent = "＋";
+          placeholder.append(plus);
+          return placeholder;
+        }
+
+        const external = tool.kind === "external";
+        const card = document.createElement(external ? "a" : "button");
+        card.className = `tool-card ${tool.style}`;
+        card.setAttribute("aria-label", `${tool.title}，${tool.action}`);
+
+        if (external) {
+          card.href = tool.href;
+        } else {
+          card.type = "button";
+          card.dataset.workspace = tool.workspace;
+        }
+
+        const icon = document.createElement("span");
+        icon.className = "card-icon";
+        icon.setAttribute("aria-hidden", "true");
+        icon.innerHTML = iconSvgs[tool.icon] || "";
+
+        const heading = document.createElement("h2");
+        heading.textContent = tool.title;
+
+        const description = document.createElement("p");
+        description.textContent = tool.description;
+
+        const action = document.createElement("span");
+        action.className = "card-action";
+        action.append(document.createTextNode(`${tool.action} `));
+        const arrow = document.createElement("span");
+        arrow.className = "arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = external ? "↗" : "→";
+        action.append(arrow);
+
+        card.append(icon, heading, description, action);
+        return card;
+      }
+
+      toolGrid.replaceChildren(...window.GUIXIN_TOOLS.map(createToolElement));
+
       const workspaces = {
         complaint: {
           title: "客户投诉",

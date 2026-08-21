@@ -1,0 +1,20 @@
+name: Link health
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 每周一北京时间 09:00 左右检查一次；GitHub 定时任务可能略有延迟。
+    - cron: "0 1 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-links.mjs

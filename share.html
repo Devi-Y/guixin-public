@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#087d4c" />
+    <title>归心｜分享二维码</title>
+    <style>
+      :root { --green: #00ae66; --ink: #1f2329; --muted: #727983; --line: #e4ebe6; }
+      * { box-sizing: border-box; }
+      body {
+        min-height: 100dvh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: radial-gradient(circle at 50% 0%, rgba(0, 174, 102, .13), transparent 28rem), #f5f8f6;
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+      main {
+        width: min(100%, 420px);
+        padding: 38px 32px 30px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: #fff;
+        box-shadow: 0 20px 54px rgba(31, 35, 41, .08);
+        text-align: center;
+      }
+      .brand { display: inline-flex; align-items: center; gap: 9px; font-size: 22px; font-weight: 800; letter-spacing: -.06em; }
+      .mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; background: var(--green); color: #fff; font-size: 16px; }
+      h1 { margin: 24px 0 7px; font-size: 24px; letter-spacing: -.05em; }
+      p { margin: 0; color: var(--muted); font-size: 14px; }
+      img { display: block; width: min(100%, 244px); height: auto; margin: 25px auto 18px; image-rendering: pixelated; }
+      .url { display: block; overflow-wrap: anywhere; color: #087d4c; font-size: 13px; line-height: 1.6; text-decoration: none; }
+      .hint { margin-top: 18px; font-size: 12px; }
+      @media (max-width: 420px) { body { padding: 14px; } main { padding: 32px 22px 24px; border-radius: 23px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="brand"><span class="mark">归</span><span>归心</span></div>
+      <h1>扫码打开归心</h1>
+      <p>深圳贝壳品质工具箱</p>
+      <img src="assets/guixin-qr.png" alt="归心公开页面二维码" />
+      <a class="url" href="https://devi-y.github.io/guixin-public/">https://devi-y.github.io/guixin-public/</a>
+      <p class="hint">可直接保存二维码，用于公众号或视频号发布。</p>
+    </main>
+  </body>
+</html>
