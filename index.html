@@ -8,24 +8,30 @@
     <title>归心｜深圳贝壳品质工具箱</title>
     <style>
       :root {
-        --ink: #1f2c25;
-        --muted: #849188;
-        --line: #e6ece8;
-        --paper: #f3f7f4;
-        --green: #07804b;
-        --green-dark: #05653c;
+        --ink: #1f2329;
+        --muted: #727983;
+        --subtle: #a4abb2;
+        --line: #e4ebe6;
+        --paper: #f5f8f6;
+        --surface: #ffffff;
+        --green: #00ae66;
+        --green-dark: #008950;
+        --green-soft: #eaf8f1;
       }
 
       * { box-sizing: border-box; }
 
       html,
-      body { min-width: 320px; min-height: 100%; }
+      body {
+        min-width: 320px;
+        min-height: 100%;
+      }
 
       body {
         min-height: 100dvh;
         margin: 0;
         background:
-          radial-gradient(circle at 50% 0, rgba(107, 206, 155, 0.16), transparent 30rem),
+          radial-gradient(circle at 50% -12%, rgba(0, 174, 102, 0.1), transparent 34rem),
           linear-gradient(180deg, #f7faf8 0%, var(--paper) 100%);
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -38,234 +44,176 @@
 
       button { -webkit-tap-highlight-color: transparent; }
 
-      .page {
-        display: grid;
+      .site {
+        width: min(100% - 56px, 1340px);
         min-height: 100dvh;
-        place-items: center;
-        padding: 32px;
-      }
-
-      .portal {
-        display: flex;
-        width: min(100%, 760px);
-        height: min(760px, calc(100dvh - 64px));
-        min-height: 520px;
-        flex-direction: column;
-        overflow: hidden;
-        border: 1px solid rgba(7, 128, 75, 0.12);
-        border-radius: 28px;
-        background: #fff;
-        box-shadow:
-          0 1px 0 rgba(255, 255, 255, 0.9) inset,
-          0 26px 68px rgba(25, 53, 37, 0.1),
-          0 6px 18px rgba(7, 128, 75, 0.05);
+        margin: 0 auto;
       }
 
       header {
         display: flex;
-        min-height: 94px;
+        min-height: 92px;
         align-items: center;
-        padding: 20px 28px;
         border-bottom: 1px solid var(--line);
-        background:
-          linear-gradient(100deg, rgba(230, 247, 237, 0.76), rgba(255, 255, 255, 0) 52%),
-          #fff;
       }
 
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 11px;
+        gap: 10px;
       }
 
-      .mark {
+      .brand-mark {
         display: grid;
-        width: 42px;
-        height: 42px;
+        width: 38px;
+        height: 38px;
         place-items: center;
-        border-radius: 14px;
-        background: linear-gradient(145deg, #0b9a5c, #057443);
-        box-shadow: 0 7px 16px rgba(7, 128, 75, 0.2);
+        border-radius: 13px;
+        background: var(--green);
+        box-shadow: 0 7px 16px rgba(0, 174, 102, 0.18);
         color: #fff;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         letter-spacing: -0.08em;
       }
 
       .brand-name {
-        font-size: 24px;
+        font-size: 23px;
         font-weight: 800;
-        letter-spacing: -0.07em;
+        letter-spacing: -0.06em;
       }
 
       .tagline {
         margin: 0 0 0 auto;
         color: var(--muted);
         font-size: 14px;
-        letter-spacing: 0.015em;
+        letter-spacing: 0.01em;
       }
 
       main {
-        display: flex;
-        min-height: 0;
-        flex: 1;
+        padding: 42px 0 48px;
       }
 
-      .modules {
+      .tool-grid {
         display: grid;
-        width: 100%;
-        min-height: 0;
-        flex: 1;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-template-rows: repeat(3, minmax(0, 1fr));
-        background: #fff;
+        gap: 18px;
       }
 
-      .tile {
-        position: relative;
-        display: flex;
+      .tool-card,
+      .placeholder {
         min-width: 0;
-        min-height: 0;
-        align-items: center;
-        justify-content: center;
-        border: 0;
-        border-right: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        background: #fff;
-        color: var(--ink);
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        transition: background 160ms ease, box-shadow 160ms ease;
-      }
-
-      .tile:nth-child(3n) { border-right: 0; }
-      .tile:nth-child(n + 7) { border-bottom: 0; }
-
-      .tile:hover,
-      .tile:focus-visible {
-        z-index: 1;
+        min-height: 232px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
         background: var(--surface);
-        box-shadow: inset 0 0 0 2px var(--edge);
-        outline: 0;
+        box-shadow: 0 8px 20px rgba(31, 35, 41, 0.035);
       }
 
-      .tile:active { background: var(--surface); }
-
-      .tile-content {
+      .tool-card {
         display: flex;
-        min-width: 0;
-        align-items: center;
         flex-direction: column;
-        gap: 12px;
+        padding: 26px;
+        color: inherit;
+        cursor: pointer;
+        text-align: left;
+        text-decoration: none;
+        transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
       }
 
-      .icon {
+      .tool-card:hover,
+      .tool-card:focus-visible {
+        border-color: #a9dec2;
+        box-shadow: 0 16px 34px rgba(0, 122, 73, 0.1);
+        outline: 0;
+        transform: translateY(-3px);
+      }
+
+      .tool-card:active { transform: translateY(-1px); }
+      .tool-card.is-primary { border-color: #9bdfba; }
+
+      .card-icon {
         display: grid;
-        width: 54px;
-        height: 54px;
+        width: 62px;
+        height: 62px;
         place-items: center;
-        border-radius: 18px;
-        background: var(--icon-bg);
-        box-shadow: 0 8px 18px var(--icon-shadow);
-        color: var(--accent);
-        font-size: 21px;
-        font-weight: 800;
-        letter-spacing: -0.06em;
-        transition: transform 160ms ease;
+        border-radius: 21px;
+        background: #f0f7f3;
       }
 
-      .tile:hover .icon,
-      .tile:focus-visible .icon { transform: translateY(-2px) scale(1.04); }
-
-      .tile-name {
-        min-width: 0;
-        padding: 0 10px;
-        font-size: 16px;
-        font-weight: 750;
-        letter-spacing: -0.04em;
-        line-height: 1.35;
+      .card-icon svg {
+        width: 30px;
+        height: 30px;
+        stroke: var(--accent);
       }
 
-      .direction {
-        position: absolute;
-        top: 15px;
-        right: 16px;
-        color: var(--accent);
-        font-size: 17px;
-        font-weight: 500;
+      .complaint { --accent: #00aa62; }
+      .jury { --accent: #377dff; }
+      .governance { --accent: #f59a00; }
+      .supervision { --accent: #ef4c52; }
+      .performance { --accent: #8d5bff; }
+
+      .tool-card h2 {
+        margin: 22px 0 0;
+        color: var(--ink);
+        font-size: clamp(1.2rem, 2vw, 1.55rem);
+        font-weight: 780;
+        letter-spacing: -0.045em;
+        line-height: 1.3;
+      }
+
+      .tool-card p {
+        min-height: 2.9em;
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .card-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 22px;
+        color: var(--green-dark);
+        font-size: 15px;
+        font-weight: 760;
         line-height: 1;
       }
 
-      .complaint {
-        --accent: #07804b;
-        --surface: #effaf4;
-        --edge: rgba(7, 128, 75, 0.18);
-        --icon-bg: #e7f8ee;
-        --icon-shadow: rgba(7, 128, 75, 0.15);
+      .card-action .arrow {
+        font-size: 27px;
+        font-weight: 400;
+        line-height: 0.6;
+        transition: transform 160ms ease;
       }
 
-      .jury {
-        --accent: #2f76b9;
-        --surface: #f0f7ff;
-        --edge: rgba(47, 118, 185, 0.18);
-        --icon-bg: #e8f3ff;
-        --icon-shadow: rgba(47, 118, 185, 0.14);
-      }
-
-      .governance {
-        --accent: #b26e16;
-        --surface: #fff8eb;
-        --edge: rgba(178, 110, 22, 0.18);
-        --icon-bg: #fff1d8;
-        --icon-shadow: rgba(178, 110, 22, 0.13);
-      }
-
-      .supervision {
-        --accent: #b34d67;
-        --surface: #fff2f5;
-        --edge: rgba(179, 77, 103, 0.18);
-        --icon-bg: #fde9ee;
-        --icon-shadow: rgba(179, 77, 103, 0.13);
-      }
-
-      .performance {
-        --accent: #7355b6;
-        --surface: #f6f2ff;
-        --edge: rgba(115, 85, 182, 0.18);
-        --icon-bg: #eee8ff;
-        --icon-shadow: rgba(115, 85, 182, 0.13);
-      }
+      .tool-card:hover .card-action .arrow,
+      .tool-card:focus-visible .card-action .arrow { transform: translateX(4px); }
 
       .placeholder {
-        cursor: default;
-        background: #fbfcfb;
-        color: #c2cbc5;
-      }
-
-      .placeholder:hover,
-      .placeholder:focus-visible {
-        z-index: auto;
-        background: #fbfcfb;
+        display: grid;
+        place-items: center;
+        border-style: dashed;
+        border-color: #e6ece8;
+        background: rgba(255, 255, 255, 0.52);
         box-shadow: none;
+        color: #c5cec8;
       }
 
-      .plus {
-        color: #c8d1cb;
-        font-size: 30px;
+      .placeholder span {
+        font-size: 32px;
         font-weight: 300;
         line-height: 1;
       }
 
       footer {
-        min-height: 64px;
-        padding: 18px 24px;
+        padding: 24px 0 34px;
         border-top: 1px solid var(--line);
-        background: #fafcfb;
         color: var(--muted);
         font-size: 13px;
-        letter-spacing: 0.02em;
-        line-height: 1.5;
+        letter-spacing: 0.015em;
         text-align: center;
       }
 
@@ -276,7 +224,7 @@
         display: grid;
         place-items: center;
         padding: 20px;
-        background: rgba(18, 37, 27, 0.34);
+        background: rgba(31, 35, 41, 0.3);
         backdrop-filter: blur(3px);
       }
 
@@ -284,12 +232,11 @@
 
       .dialog {
         position: relative;
-        width: min(100%, 520px);
-        border: 1px solid rgba(7, 128, 75, 0.12);
+        width: min(100%, 540px);
         border-radius: 20px;
         padding: 26px;
         background: #fff;
-        box-shadow: 0 28px 84px rgba(19, 42, 29, 0.24);
+        box-shadow: 0 30px 84px rgba(31, 35, 41, 0.24);
       }
 
       .dialog h2 {
@@ -317,7 +264,7 @@
 
       .close:hover,
       .close:focus-visible {
-        background: #f1f5f2;
+        background: #f0f5f2;
         color: var(--ink);
         outline: 0;
       }
@@ -345,8 +292,8 @@
       }
 
       textarea:focus {
-        border-color: #78c79e;
-        outline: 3px solid rgba(120, 199, 158, 0.18);
+        border-color: #79cba2;
+        outline: 3px solid rgba(0, 174, 102, 0.16);
       }
 
       .copy {
@@ -368,160 +315,172 @@
         outline: 0;
       }
 
-      @media (max-width: 800px) {
-        .page { padding: 22px; }
-        .portal {
-          width: min(100%, 680px);
-          height: min(740px, calc(100dvh - 44px));
-          border-radius: 24px;
-        }
+      @media (max-width: 1024px) {
+        .site { width: min(100% - 40px, 940px); }
+        main { padding: 30px 0 38px; }
+        .tool-grid { gap: 14px; }
+        .tool-card,
+        .placeholder { min-height: 210px; border-radius: 20px; }
+        .tool-card { padding: 20px; }
+        .card-icon { width: 54px; height: 54px; border-radius: 18px; }
+        .tool-card h2 { margin-top: 17px; font-size: 19px; }
+        .tool-card p { margin-top: 7px; font-size: 13px; }
+        .card-action { padding-top: 16px; font-size: 13px; }
+      }
+
+      @media (max-width: 700px) {
+        .site { width: min(100% - 28px, 640px); }
+        header { min-height: 76px; }
+        .brand-mark { width: 33px; height: 33px; border-radius: 11px; font-size: 16px; }
+        .brand-name { font-size: 20px; }
+        .tagline { font-size: 12px; }
+        .tool-card,
+        .placeholder { min-height: 178px; }
+        .tool-card { padding: 16px; }
+        .card-icon { width: 48px; height: 48px; border-radius: 16px; }
+        .card-icon svg { width: 26px; height: 26px; }
+        .tool-card h2 { margin-top: 13px; font-size: 16px; }
+        .tool-card p { min-height: 3em; font-size: 12px; }
+        .card-action { padding-top: 12px; font-size: 12px; }
       }
 
       @media (max-width: 600px) {
         body { background: #fff; }
 
-        .page {
-          display: block;
-          padding: 0;
-        }
-
-        .portal {
+        .site {
           width: 100%;
-          height: 100dvh;
-          min-height: 520px;
-          border: 0;
-          border-radius: 0;
-          box-shadow: none;
+          min-height: 100dvh;
         }
 
         header {
-          min-height: 72px;
-          padding: 14px max(16px, env(safe-area-inset-left)) 14px max(16px, env(safe-area-inset-right));
+          min-height: 66px;
+          padding: 13px max(15px, env(safe-area-inset-left)) 13px max(15px, env(safe-area-inset-right));
         }
 
         .brand { gap: 8px; }
-
-        .mark {
-          width: 32px;
-          height: 32px;
-          border-radius: 11px;
-          font-size: 15px;
-        }
-
-        .brand-name { font-size: 20px; }
+        .brand-mark { width: 30px; height: 30px; border-radius: 10px; font-size: 14px; }
+        .brand-name { font-size: 19px; }
 
         .tagline {
-          max-width: 190px;
+          max-width: 195px;
           overflow: hidden;
           font-size: 11px;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
-        .tile-content { gap: 8px; }
+        main { padding: 0; }
 
-        .icon {
-          width: 39px;
-          height: 39px;
-          border-radius: 13px;
-          font-size: 16px;
+        .tool-grid {
+          gap: 0;
+          border-top: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
         }
 
-        .tile-name {
-          padding: 0 4px;
-          font-size: 13px;
-          white-space: nowrap;
+        .tool-card,
+        .placeholder {
+          min-height: 122px;
+          border: 0;
+          border-right: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
+          border-radius: 0;
+          box-shadow: none;
         }
 
-        .direction {
-          top: 11px;
-          right: 11px;
-          font-size: 13px;
+        .tool-card:nth-child(3n),
+        .placeholder:nth-child(3n) { border-right: 0; }
+
+        .tool-grid > :nth-child(n + 7) { border-bottom: 0; }
+
+        .tool-card {
+          align-items: center;
+          justify-content: center;
+          padding: 10px 4px;
+          text-align: center;
         }
 
-        .plus { font-size: 24px; }
+        .tool-card:hover,
+        .tool-card:focus-visible {
+          border-color: var(--line);
+          box-shadow: none;
+          outline: 0;
+          transform: none;
+        }
+
+        .tool-card:active { background: #f3fbf6; }
+
+        .card-icon { width: 38px; height: 38px; border-radius: 13px; }
+        .card-icon svg { width: 20px; height: 20px; }
+        .tool-card h2 { margin-top: 8px; font-size: 13px; white-space: nowrap; }
+        .tool-card p,
+        .card-action { display: none; }
+        .placeholder { background: #fbfcfb; }
+        .placeholder span { font-size: 24px; }
 
         footer {
-          min-height: 58px;
-          padding: 17px max(16px, env(safe-area-inset-right)) max(17px, env(safe-area-inset-bottom));
+          padding: 20px max(15px, env(safe-area-inset-right)) max(25px, env(safe-area-inset-bottom));
           font-size: 12px;
         }
 
         .dialog { padding: 22px 18px 18px; }
       }
-
-      @media (max-height: 620px) and (min-width: 601px) {
-        .page { padding: 18px; }
-        .portal { height: calc(100dvh - 36px); min-height: 460px; }
-        header { min-height: 76px; padding-top: 14px; padding-bottom: 14px; }
-        footer { min-height: 54px; padding: 14px; }
-        .icon { width: 44px; height: 44px; border-radius: 15px; font-size: 18px; }
-        .tile-content { gap: 8px; }
-      }
     </style>
   </head>
   <body>
-    <div class="page">
-      <div class="portal">
-        <header>
-          <div class="brand" aria-label="归心">
-            <span class="mark" aria-hidden="true">归</span>
-            <strong class="brand-name">归心</strong>
-          </div>
-          <p class="tagline">回归到客户服务的初心</p>
-        </header>
+    <div class="site">
+      <header>
+        <div class="brand" aria-label="归心">
+          <span class="brand-mark" aria-hidden="true">归</span>
+          <strong class="brand-name">归心</strong>
+        </div>
+        <p class="tagline">回归到客户服务的初心</p>
+      </header>
 
-        <main>
-          <section class="modules" aria-label="归心九宫格">
-            <button class="tile complaint" type="button" data-workspace="complaint" aria-label="客户投诉">
-              <span class="direction" aria-hidden="true">→</span>
-              <span class="tile-content">
-                <span class="icon" aria-hidden="true">诉</span>
-                <span class="tile-name">客户投诉</span>
-              </span>
-            </button>
+      <main>
+        <section class="tool-grid" aria-label="归心九宫格模块">
+          <button class="tool-card complaint chat is-primary" type="button" data-workspace="complaint" aria-label="客户投诉，立即开始">
+            <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg></span>
+            <h2>客户投诉</h2>
+            <p>整理客诉事实并生成回复</p>
+            <span class="card-action">立即开始 <span class="arrow" aria-hidden="true">→</span></span>
+          </button>
 
-            <a class="tile jury" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced" aria-label="陪审团">
-              <span class="direction" aria-hidden="true">↗</span>
-              <span class="tile-content">
-                <span class="icon" aria-hidden="true">审</span>
-                <span class="tile-name">陪审团</span>
-              </span>
-            </a>
+          <a class="tool-card jury person" href="https://moma.ke.com/chat/45a870b8-adf5-4c9c-ae84-4404c1a03ced" aria-label="陪审团，打开链接">
+            <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
+            <h2>陪审团</h2>
+            <p>处理争议与分歧</p>
+            <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
+          </a>
 
-            <a class="tile governance" href="https://app-moma.ke.com/cmy" aria-label="共治理事会">
-              <span class="direction" aria-hidden="true">↗</span>
-              <span class="tile-content">
-                <span class="icon" aria-hidden="true">治</span>
-                <span class="tile-name">共治理事会</span>
-              </span>
-            </a>
+          <a class="tool-card governance bank" href="https://app-moma.ke.com/cmy" aria-label="共治理事会，打开链接">
+            <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></svg></span>
+            <h2>共治理事会</h2>
+            <p>协同区域问题</p>
+            <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
+          </a>
 
-            <a class="tile supervision" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" aria-label="监察一码通">
-              <span class="direction" aria-hidden="true">↗</span>
-              <span class="tile-content">
-                <span class="icon" aria-hidden="true">监</span>
-                <span class="tile-name">监察一码通</span>
-              </span>
-            </a>
+          <a class="tool-card supervision eye" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" aria-label="监察一码通，打开链接">
+            <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h2>监察一码通</h2>
+            <p>提交监察问题</p>
+            <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
+          </a>
 
-            <button class="tile performance" type="button" data-workspace="performance" aria-label="业绩争议">
-              <span class="direction" aria-hidden="true">→</span>
-              <span class="tile-content">
-                <span class="icon" aria-hidden="true">绩</span>
-                <span class="tile-name">业绩争议</span>
-              </span>
-            </button>
+          <button class="tool-card performance scale" type="button" data-workspace="performance" aria-label="业绩争议，立即开始">
+            <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></svg></span>
+            <h2>业绩争议</h2>
+            <p>核对规则和证据，准备沟通</p>
+            <span class="card-action">立即开始 <span class="arrow" aria-hidden="true">→</span></span>
+          </button>
 
-            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
-            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
-            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
-            <div class="tile placeholder" aria-label="预留模块位"><span class="plus" aria-hidden="true">＋</span></div>
-          </section>
-        </main>
+          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
+          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
+          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
+          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
+        </section>
+      </main>
 
-        <footer>深圳贝壳品质工具箱</footer>
-      </div>
+      <footer>深圳贝壳品质工具箱</footer>
     </div>
 
     <div class="overlay" id="workspace" hidden>
