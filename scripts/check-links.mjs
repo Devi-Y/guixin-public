@@ -2,11 +2,15 @@ import tools from "../tools.js";
 
 const publicUrl = "https://devi-y.github.io/guixin-public/";
 const timeoutMs = 15000;
+const runningInGitHubActions = process.env.GITHUB_ACTIONS === "true";
+
+const externalTools = tools.filter((tool) => tool.kind === "external");
+const browserOnlyTools = externalTools.filter((tool) => tool.healthCheck === "browser");
 
 const targets = [
   { name: "归心公开页", url: publicUrl },
-  ...tools
-    .filter((tool) => tool.kind === "external")
+  ...externalTools
+    .filter((tool) => !(runningInGitHubActions && tool.healthCheck === "browser"))
     .map((tool) => ({ name: tool.title, url: tool.href })),
 ];
 
@@ -41,10 +45,20 @@ for (const result of results) {
   console.log(`${result.healthy ? "✓" : "✗"} ${result.name}: ${result.status} ${detail}`);
 }
 
+if (runningInGitHubActions) {
+  for (const tool of browserOnlyTools) {
+    console.log(`↪ ${tool.title}: 需经纪人浏览器验证，云端巡检跳过`);
+  }
+}
+
 const failed = results.filter((result) => !result.healthy);
 if (failed.length) {
   console.error(`\n${failed.length} 个入口需要复核。`);
   process.exitCode = 1;
 } else {
-  console.log("\n全部入口当前可访问。");
+  if (runningInGitHubActions && browserOnlyTools.length) {
+    console.log("\n云端可检入口均可访问；内部入口需在经纪人浏览器中复核。");
+  } else {
+    console.log("\n全部入口当前可访问。");
+  }
 }

@@ -6,6 +6,7 @@
  * - description：桌面端的一句话说明（手机端不展示）
  * - href：同事提供的外部链接
  * - kind：external 为外部链接；workspace 为归心内置工作台
+ * - healthCheck：browser 表示该内部链接只在经纪人浏览器中验证
  *
  * 九宫格始终保留 9 个位置。启用新模块时，将一个 placeholder 替换为模块配置即可。
  */
@@ -65,6 +66,7 @@
       id: "credit-penalty",
       kind: "external",
       href: "https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11",
+      healthCheck: "browser",
       style: "credit badge-alert",
       icon: "badge-alert",
       title: "信用分处罚",
@@ -75,6 +77,7 @@
       id: "mediation-ratio",
       kind: "external",
       href: "https://app-fly.ke.com/7c80d88a-9ce5-4772-9b0d-e8edf4c59409",
+      healthCheck: "browser",
       style: "ratio chart-pie",
       icon: "chart-pie",
       title: "调解单占比",
