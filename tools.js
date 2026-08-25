@@ -53,16 +53,6 @@
       action: "打开链接",
     },
     {
-      id: "performance",
-      kind: "workspace",
-      workspace: "performance",
-      style: "performance scale",
-      icon: "scale",
-      title: "业绩争议",
-      description: "核对规则和证据，准备沟通",
-      action: "立即开始",
-    },
-    {
       id: "credit-penalty",
       kind: "external",
       href: "https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11",
@@ -74,17 +64,6 @@
       action: "打开查询",
     },
     {
-      id: "mediation-ratio",
-      kind: "external",
-      href: "https://app-fly.ke.com/7c80d88a-9ce5-4772-9b0d-e8edf4c59409",
-      healthCheck: "browser",
-      style: "ratio chart-pie",
-      icon: "chart-pie",
-      title: "调解单占比",
-      description: "查看争议、调解数据",
-      action: "打开看板",
-    },
-    {
       id: "coin-guide",
       kind: "workspace",
       workspace: "coins",
@@ -94,6 +73,8 @@
       description: "查看当期赚币路径",
       action: "查看指南",
     },
+    { id: "reserved-2", kind: "placeholder" },
+    { id: "reserved-3", kind: "placeholder" },
     { id: "reserved-4", kind: "placeholder" },
   ];
 
