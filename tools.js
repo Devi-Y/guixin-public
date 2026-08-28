@@ -94,7 +94,16 @@
       description: "统一进入品质课程",
       action: "课程中心",
     },
-    { id: "reserved-1", kind: "placeholder" },
+    {
+      id: "beilian-quality",
+      kind: "external",
+      href: "https://app-moma.ke.com/sz",
+      style: "beilian quality-board",
+      iconText: "品",
+      title: "深圳贝联客诉看板",
+      description: "查看贝联服务品质数据",
+      action: "打开看板",
+    },
   ];
 
   const contacts = [
@@ -103,6 +112,7 @@
     { module: "区域共治理事会", owner: "陈梦怡", moduleId: "governance" },
     { module: "近一年信用分处罚查询", owner: "李昊轩", moduleId: "credit-penalty" },
     { module: "链家客诉", owner: "陈瑜", moduleId: "complaint-dashboard" },
+    { module: "深圳贝联服务品质监控台", owner: "胡佳伟", moduleId: "beilian-quality" },
   ];
 
   // 课程链接确认后统一添加到这里，页面会自动生成课程入口。
