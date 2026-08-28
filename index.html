@@ -564,28 +564,28 @@
 
       <main>
         <section class="tool-grid" id="tool-grid" aria-label="归心九宫格模块">
-          <a class="tool-card jury person" href="https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/" aria-label="陪审团，打开链接">
+          <a class="tool-card jury person" href="https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/" target="_top" aria-label="陪审团，打开链接">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
             <h2>陪审团</h2>
             <p>处理争议与分歧</p>
             <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="tool-card governance bank" href="https://app-moma.ke.com/cmy" aria-label="共治理事会，打开链接">
+          <a class="tool-card governance bank" href="https://app-moma.ke.com/cmy" target="_top" aria-label="共治理事会，打开链接">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></svg></span>
             <h2>共治理事会</h2>
             <p>协同区域问题</p>
             <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="tool-card supervision eye" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" aria-label="监察一码通，打开链接">
+          <a class="tool-card supervision eye" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" target="_top" aria-label="监察一码通，打开链接">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
             <h2>监察一码通</h2>
             <p>提交监察问题</p>
             <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="tool-card credit badge-alert" href="https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11" aria-label="信用分处罚，打开查询">
+          <a class="tool-card credit badge-alert" href="https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11" target="_top" aria-label="信用分处罚，打开查询">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg></span>
             <h2>信用分处罚</h2>
             <p>查询近一年处罚记录</p>
@@ -599,7 +599,7 @@
             <span class="card-action">查看指南 <span class="arrow" aria-hidden="true">→</span></span>
           </button>
 
-          <a class="tool-card complaint-board dashboard" href="https://moma.ke.com/chat/aec0f833-f638-4404-82bf-9fa66d71c947" aria-label="链家客诉，打开看板">
+          <a class="tool-card complaint-board dashboard" href="https://moma.ke.com/chat/aec0f833-f638-4404-82bf-9fa66d71c947" target="_top" aria-label="链家客诉，打开看板">
             <span class="card-icon card-icon-text" aria-hidden="true">诉</span>
             <h2>链家客诉</h2>
             <p>查看客诉工单与问题数据</p>
@@ -711,6 +711,7 @@
 
         if (external) {
           card.href = tool.href;
+          card.target = "_top";
         } else {
           card.type = "button";
           card.dataset.workspace = tool.workspace;
@@ -793,7 +794,10 @@
           const canOpen = linkedTool?.kind === "external" && linkedTool.href;
           const row = document.createElement(canOpen ? "a" : "div");
           row.className = "directory-item";
-          if (canOpen) row.href = linkedTool.href;
+          if (canOpen) {
+            row.href = linkedTool.href;
+            row.target = "_top";
+          }
 
           const moduleName = document.createElement("strong");
           moduleName.className = "directory-module";
@@ -819,6 +823,7 @@
           const row = document.createElement("a");
           row.className = "course-item";
           row.href = course.href;
+          row.target = "_top";
 
           const courseName = document.createElement("strong");
           courseName.textContent = course.title;
