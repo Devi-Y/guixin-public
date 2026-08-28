@@ -6,6 +6,7 @@
  * - description：桌面端的一句话说明（手机端不展示）
  * - href：同事提供的外部链接
  * - kind：external 为外部链接；workspace 为归心内置工作台
+ * - iconText：没有现成图标时，在图标位展示的单字
  * - healthCheck：browser 表示该内部链接只在经纪人浏览器中验证
  *
  * 九宫格始终保留 9 个位置。启用新模块时，将一个 placeholder 替换为模块配置即可。
@@ -73,12 +74,43 @@
       description: "查看当期赚币路径",
       action: "查看指南",
     },
-    { id: "reserved-2", kind: "placeholder" },
-    { id: "reserved-3", kind: "placeholder" },
+    {
+      id: "contacts",
+      kind: "workspace",
+      workspace: "contacts",
+      style: "contacts directory",
+      iconText: "联",
+      title: "模块联系人",
+      description: "查看模块负责人",
+      action: "查看名单",
+    },
+    {
+      id: "learning",
+      kind: "workspace",
+      workspace: "learning",
+      style: "learning course",
+      iconText: "学",
+      title: "课程学习",
+      description: "统一进入品质课程",
+      action: "课程中心",
+    },
     { id: "reserved-4", kind: "placeholder" },
   ];
 
+  const contacts = [
+    { module: "监察一码通", owner: "陈婉瑜", moduleId: "supervision" },
+    { module: "陪审团", owner: "李昊轩", moduleId: "jury" },
+    { module: "区域共治理事会", owner: "陈梦怡", moduleId: "governance" },
+    { module: "近一年信用分处罚查询", owner: "李昊轩", moduleId: "credit-penalty" },
+    { module: "链家客诉看板", owner: "陈瑜", status: "待正式入口" },
+  ];
+
+  // 课程链接确认后统一添加到这里，页面会自动生成课程入口。
+  const courses = [];
+
   root.GUIXIN_TOOLS = tools;
+  root.GUIXIN_CONTACTS = contacts;
+  root.GUIXIN_COURSES = courses;
 
   if (typeof module !== "undefined" && module.exports) {
     module.exports = tools;

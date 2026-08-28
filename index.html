@@ -153,6 +153,14 @@
       .supervision { --accent: #ef4c52; }
       .credit { --accent: #0f8b8d; }
       .coins { --accent: #d39a00; }
+      .contacts { --accent: #7a62d3; }
+      .learning { --accent: #3478d4; }
+
+      .card-icon-text {
+        color: var(--accent);
+        font-size: 19px;
+        font-weight: 800;
+      }
 
       .tool-card h2 {
         margin: 22px 0 0;
@@ -377,6 +385,99 @@
         line-height: 1.6;
       }
 
+      .directory-dialog {
+        width: min(100%, 620px);
+        max-height: calc(100dvh - 40px);
+        overflow-y: auto;
+      }
+
+      .directory-list {
+        display: grid;
+        gap: 9px;
+        margin-top: 20px;
+      }
+
+      .directory-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 14px;
+        align-items: center;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 13px 14px;
+        background: #fbfdfc;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a.directory-item:hover,
+      a.directory-item:focus-visible {
+        border-color: #a9dec2;
+        background: #f6fbf8;
+        outline: 0;
+      }
+
+      .directory-module {
+        overflow: hidden;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .directory-owner {
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .directory-status {
+        color: var(--green-dark);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .directory-status.is-pending { color: var(--subtle); }
+
+      .course-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .course-item {
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        background: #fbfdfc;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .course-item:hover,
+      .course-item:focus-visible {
+        border-color: #a9dec2;
+        outline: 0;
+      }
+
+      .course-item strong { display: block; font-size: 14px; }
+      .course-item span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; }
+
+      .empty-state {
+        margin-top: 20px;
+        border: 1px dashed #dce7e0;
+        border-radius: 14px;
+        padding: 24px 18px;
+        background: #fbfdfc;
+        text-align: center;
+      }
+
+      .empty-state strong { display: block; font-size: 14px; }
+      .empty-state span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; }
+
       @media (max-width: 1024px) {
         .site { width: min(100% - 40px, 940px); }
         main { padding: 30px 0 38px; }
@@ -486,8 +587,15 @@
 
         .dialog { padding: 22px 18px 18px; }
         .guide-dialog { max-height: calc(100dvh - 24px); }
+        .directory-dialog { max-height: calc(100dvh - 24px); }
         .earn-grid { grid-template-columns: 1fr; gap: 8px; margin-top: 16px; }
         .earn-item { padding: 11px 12px; }
+        .directory-item {
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 6px 10px;
+          padding: 11px 12px;
+        }
+        .directory-status { grid-column: 1 / -1; }
       }
     </style>
   </head>
@@ -597,7 +705,27 @@
       </section>
     </div>
 
-    <script src="./tools.js?v=20260825-2"></script>
+    <div class="overlay" id="contacts-directory" hidden>
+      <section class="dialog directory-dialog" role="dialog" aria-modal="true" aria-labelledby="contacts-title">
+        <button class="close contacts-close" type="button" aria-label="关闭模块联系人">×</button>
+        <h2 id="contacts-title">负责模块与联系人</h2>
+        <div class="directory-list" id="contact-list"></div>
+      </section>
+    </div>
+
+    <div class="overlay" id="learning-center" hidden>
+      <section class="dialog directory-dialog" role="dialog" aria-modal="true" aria-labelledby="learning-title">
+        <button class="close learning-close" type="button" aria-label="关闭课程学习">×</button>
+        <h2 id="learning-title">课程学习</h2>
+        <div class="course-list" id="course-list"></div>
+        <div class="empty-state" id="course-empty" hidden>
+          <strong>课程正在接入</strong>
+          <span>课程链接确认后会在这里直接打开</span>
+        </div>
+      </section>
+    </div>
+
+    <script src="./tools.js?v=20260828-1"></script>
     <script>
       const iconSvgs = {
         "message-square": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg>',
@@ -637,7 +765,12 @@
         const icon = document.createElement("span");
         icon.className = "card-icon";
         icon.setAttribute("aria-hidden", "true");
-        icon.innerHTML = iconSvgs[tool.icon] || "";
+        if (tool.iconText) {
+          icon.classList.add("card-icon-text");
+          icon.textContent = tool.iconText;
+        } else {
+          icon.innerHTML = iconSvgs[tool.icon] || "";
+        }
 
         const heading = document.createElement("h2");
         heading.textContent = tool.title;
@@ -669,11 +802,24 @@
         coins: {
           type: "guide",
         },
+        contacts: {
+          type: "contacts",
+        },
+        learning: {
+          type: "learning",
+        },
       };
 
       const overlay = document.getElementById("workspace");
       const coinGuide = document.getElementById("coin-guide");
+      const contactsDirectory = document.getElementById("contacts-directory");
+      const learningCenter = document.getElementById("learning-center");
       const guideClose = document.querySelector(".guide-close");
+      const contactsClose = document.querySelector(".contacts-close");
+      const learningClose = document.querySelector(".learning-close");
+      const contactList = document.getElementById("contact-list");
+      const courseList = document.getElementById("course-list");
+      const courseEmpty = document.getElementById("course-empty");
       const title = document.getElementById("workspace-title");
       const input = document.getElementById("workspace-input");
       const copy = document.getElementById("copy-workspace");
@@ -689,6 +835,65 @@
         activeWorkspace = null;
       }
 
+      function closeContactsDirectory() {
+        contactsDirectory.hidden = true;
+        activeWorkspace = null;
+      }
+
+      function closeLearningCenter() {
+        learningCenter.hidden = true;
+        activeWorkspace = null;
+      }
+
+      function renderContacts() {
+        const contacts = window.GUIXIN_CONTACTS || [];
+        const toolsById = new Map(window.GUIXIN_TOOLS.map((tool) => [tool.id, tool]));
+        const rows = contacts.map((contact) => {
+          const linkedTool = toolsById.get(contact.moduleId);
+          const canOpen = linkedTool?.kind === "external" && linkedTool.href;
+          const row = document.createElement(canOpen ? "a" : "div");
+          row.className = "directory-item";
+          if (canOpen) row.href = linkedTool.href;
+
+          const moduleName = document.createElement("strong");
+          moduleName.className = "directory-module";
+          moduleName.textContent = contact.module;
+
+          const owner = document.createElement("span");
+          owner.className = "directory-owner";
+          owner.textContent = `负责人：${contact.owner}`;
+
+          const status = document.createElement("em");
+          status.className = `directory-status${canOpen ? "" : " is-pending"}`;
+          status.textContent = canOpen ? "打开模块 ↗" : (contact.status || "待接入");
+
+          row.append(moduleName, owner, status);
+          return row;
+        });
+        contactList.replaceChildren(...rows);
+      }
+
+      function renderCourses() {
+        const courses = window.GUIXIN_COURSES || [];
+        const rows = courses.map((course) => {
+          const row = document.createElement("a");
+          row.className = "course-item";
+          row.href = course.href;
+
+          const courseName = document.createElement("strong");
+          courseName.textContent = course.title;
+          const description = document.createElement("span");
+          description.textContent = course.description || "打开课程";
+          row.append(courseName, description);
+          return row;
+        });
+        courseList.replaceChildren(...rows);
+        courseEmpty.hidden = courses.length > 0;
+      }
+
+      renderContacts();
+      renderCourses();
+
       document.querySelectorAll("[data-workspace]").forEach((button) => {
         button.addEventListener("click", () => {
           activeWorkspace = workspaces[button.dataset.workspace];
@@ -697,6 +902,18 @@
           if (activeWorkspace.type === "guide") {
             coinGuide.hidden = false;
             guideClose.focus();
+            return;
+          }
+
+          if (activeWorkspace.type === "contacts") {
+            contactsDirectory.hidden = false;
+            contactsClose.focus();
+            return;
+          }
+
+          if (activeWorkspace.type === "learning") {
+            learningCenter.hidden = false;
+            learningClose.focus();
             return;
           }
 
@@ -709,7 +926,7 @@
         });
       });
 
-      document.querySelector(".close").addEventListener("click", closeWorkspace);
+      document.querySelector("#workspace .close").addEventListener("click", closeWorkspace);
       overlay.addEventListener("click", (event) => {
         if (event.target === overlay) closeWorkspace();
       });
@@ -717,9 +934,19 @@
       coinGuide.addEventListener("click", (event) => {
         if (event.target === coinGuide) closeCoinGuide();
       });
+      contactsClose.addEventListener("click", closeContactsDirectory);
+      contactsDirectory.addEventListener("click", (event) => {
+        if (event.target === contactsDirectory) closeContactsDirectory();
+      });
+      learningClose.addEventListener("click", closeLearningCenter);
+      learningCenter.addEventListener("click", (event) => {
+        if (event.target === learningCenter) closeLearningCenter();
+      });
       document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
-        if (!coinGuide.hidden) closeCoinGuide();
+        if (!learningCenter.hidden) closeLearningCenter();
+        else if (!contactsDirectory.hidden) closeContactsDirectory();
+        else if (!coinGuide.hidden) closeCoinGuide();
         else if (!overlay.hidden) closeWorkspace();
       });
 
