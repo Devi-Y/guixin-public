@@ -153,6 +153,7 @@
       .supervision { --accent: #ef4c52; }
       .credit { --accent: #0f8b8d; }
       .coins { --accent: #d39a00; }
+      .complaint-board { --accent: #d85c78; }
       .contacts { --accent: #7a62d3; }
       .learning { --accent: #3478d4; }
 
@@ -653,9 +654,26 @@
             <span class="card-action">查看指南 <span class="arrow" aria-hidden="true">→</span></span>
           </button>
 
-          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
-          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
-          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
+          <a class="tool-card complaint-board dashboard" href="https://moma.ke.com/chat/aec0f833-f638-4404-82bf-9fa66d71c947" aria-label="链家客诉，打开看板">
+            <span class="card-icon card-icon-text" aria-hidden="true">诉</span>
+            <h2>链家客诉</h2>
+            <p>查看客诉工单与问题数据</p>
+            <span class="card-action">打开看板 <span class="arrow" aria-hidden="true">↗</span></span>
+          </a>
+
+          <button class="tool-card contacts directory" type="button" data-workspace="contacts" aria-label="模块负责人，查看名单">
+            <span class="card-icon card-icon-text" aria-hidden="true">联</span>
+            <h2>模块负责人</h2>
+            <p>查看模块负责人和联系人</p>
+            <span class="card-action">查看名单 <span class="arrow" aria-hidden="true">→</span></span>
+          </button>
+
+          <button class="tool-card learning course" type="button" data-workspace="learning" aria-label="课程学习，课程中心">
+            <span class="card-icon card-icon-text" aria-hidden="true">学</span>
+            <h2>课程学习</h2>
+            <p>统一进入品质课程</p>
+            <span class="card-action">课程中心 <span class="arrow" aria-hidden="true">→</span></span>
+          </button>
         </section>
       </main>
 
@@ -707,8 +725,8 @@
 
     <div class="overlay" id="contacts-directory" hidden>
       <section class="dialog directory-dialog" role="dialog" aria-modal="true" aria-labelledby="contacts-title">
-        <button class="close contacts-close" type="button" aria-label="关闭模块联系人">×</button>
-        <h2 id="contacts-title">负责模块与联系人</h2>
+        <button class="close contacts-close" type="button" aria-label="关闭模块负责人">×</button>
+        <h2 id="contacts-title">模块负责人</h2>
         <div class="directory-list" id="contact-list"></div>
       </section>
     </div>
@@ -725,7 +743,7 @@
       </section>
     </div>
 
-    <script src="./tools.js?v=20260828-1"></script>
+    <script src="./tools.js?v=20260828-2"></script>
     <script>
       const iconSvgs = {
         "message-square": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg>',

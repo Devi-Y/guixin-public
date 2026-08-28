@@ -75,13 +75,23 @@
       action: "查看指南",
     },
     {
+      id: "complaint-dashboard",
+      kind: "external",
+      href: "https://moma.ke.com/chat/aec0f833-f638-4404-82bf-9fa66d71c947",
+      style: "complaint-board dashboard",
+      iconText: "诉",
+      title: "链家客诉",
+      description: "查看客诉工单与问题数据",
+      action: "打开看板",
+    },
+    {
       id: "contacts",
       kind: "workspace",
       workspace: "contacts",
       style: "contacts directory",
       iconText: "联",
-      title: "模块联系人",
-      description: "查看模块负责人",
+      title: "模块负责人",
+      description: "查看模块负责人和联系人",
       action: "查看名单",
     },
     {
@@ -94,7 +104,6 @@
       description: "统一进入品质课程",
       action: "课程中心",
     },
-    { id: "reserved-4", kind: "placeholder" },
   ];
 
   const contacts = [
@@ -102,7 +111,7 @@
     { module: "陪审团", owner: "李昊轩", moduleId: "jury" },
     { module: "区域共治理事会", owner: "陈梦怡", moduleId: "governance" },
     { module: "近一年信用分处罚查询", owner: "李昊轩", moduleId: "credit-penalty" },
-    { module: "链家客诉看板", owner: "陈瑜", status: "待正式入口" },
+    { module: "链家客诉", owner: "陈瑜", moduleId: "complaint-dashboard" },
   ];
 
   // 课程链接确认后统一添加到这里，页面会自动生成课程入口。
