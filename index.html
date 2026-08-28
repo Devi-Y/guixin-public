@@ -39,8 +39,7 @@
         text-rendering: optimizeLegibility;
       }
 
-      button,
-      textarea { font: inherit; }
+      button { font: inherit; }
 
       button { -webkit-tap-highlight-color: transparent; }
 
@@ -147,7 +146,6 @@
         stroke: var(--accent);
       }
 
-      .complaint { --accent: #00aa62; }
       .jury { --accent: #377dff; }
       .governance { --accent: #f59a00; }
       .supervision { --accent: #ef4c52; }
@@ -277,52 +275,6 @@
       .close:focus-visible {
         background: #f0f5f2;
         color: var(--ink);
-        outline: 0;
-      }
-
-      .dialog label {
-        display: block;
-        margin: 22px 0 8px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      textarea {
-        display: block;
-        width: 100%;
-        min-height: 150px;
-        resize: vertical;
-        border: 1px solid var(--line);
-        border-radius: 13px;
-        padding: 13px;
-        background: #fff;
-        color: var(--ink);
-        font-size: 14px;
-        line-height: 1.6;
-      }
-
-      textarea:focus {
-        border-color: #79cba2;
-        outline: 3px solid rgba(0, 174, 102, 0.16);
-      }
-
-      .copy {
-        width: 100%;
-        margin-top: 14px;
-        border: 0;
-        border-radius: 13px;
-        padding: 12px 16px;
-        background: var(--green);
-        color: #fff;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 750;
-      }
-
-      .copy:hover,
-      .copy:focus-visible {
-        background: var(--green-dark);
         outline: 0;
       }
 
@@ -612,13 +564,6 @@
 
       <main>
         <section class="tool-grid" id="tool-grid" aria-label="归心九宫格模块">
-          <button class="tool-card complaint chat is-primary" type="button" data-workspace="complaint" aria-label="客户投诉，立即开始">
-            <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg></span>
-            <h2>客户投诉</h2>
-            <p>整理客诉事实并生成回复</p>
-            <span class="card-action">立即开始 <span class="arrow" aria-hidden="true">→</span></span>
-          </button>
-
           <a class="tool-card jury person" href="https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/" aria-label="陪审团，打开链接">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
             <h2>陪审团</h2>
@@ -674,20 +619,12 @@
             <p>统一进入品质课程</p>
             <span class="card-action">课程中心 <span class="arrow" aria-hidden="true">→</span></span>
           </button>
+
+          <div class="placeholder" aria-label="预留模块位"><span aria-hidden="true">＋</span></div>
         </section>
       </main>
 
       <footer>深圳贝壳品质工具箱</footer>
-    </div>
-
-    <div class="overlay" id="workspace" hidden>
-      <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-title">
-        <button class="close" type="button" aria-label="关闭">×</button>
-        <h2 id="workspace-title"></h2>
-        <label for="workspace-input">记录事实</label>
-        <textarea id="workspace-input"></textarea>
-        <button class="copy" type="button" id="copy-workspace">复制给 AI 助手</button>
-      </section>
     </div>
 
     <div class="overlay" id="coin-guide" hidden>
@@ -743,10 +680,9 @@
       </section>
     </div>
 
-    <script src="./tools.js?v=20260828-2"></script>
+    <script src="./tools.js?v=20260828-3"></script>
     <script>
       const iconSvgs = {
-        "message-square": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg>',
         "user-round": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>',
         landmark: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></svg>',
         eye: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>',
@@ -812,11 +748,6 @@
       toolGrid.replaceChildren(...window.GUIXIN_TOOLS.map(createToolElement));
 
       const workspaces = {
-        complaint: {
-          title: "客户投诉",
-          placeholder: "写下时间、人物、客户原话和已做处理",
-          prompt: "请以房地产客户服务主管的视角，整理以下客户投诉。只基于已提供的事实，不替任何一方下结论。请按事实时间线、客户核心诉求、需要核实的信息、责任边界、今天能执行的处理方案和对客户的回复话术输出。",
-        },
         coins: {
           type: "guide",
         },
@@ -828,7 +759,6 @@
         },
       };
 
-      const overlay = document.getElementById("workspace");
       const coinGuide = document.getElementById("coin-guide");
       const contactsDirectory = document.getElementById("contacts-directory");
       const learningCenter = document.getElementById("learning-center");
@@ -838,15 +768,7 @@
       const contactList = document.getElementById("contact-list");
       const courseList = document.getElementById("course-list");
       const courseEmpty = document.getElementById("course-empty");
-      const title = document.getElementById("workspace-title");
-      const input = document.getElementById("workspace-input");
-      const copy = document.getElementById("copy-workspace");
       let activeWorkspace = null;
-
-      function closeWorkspace() {
-        overlay.hidden = true;
-        activeWorkspace = null;
-      }
 
       function closeCoinGuide() {
         coinGuide.hidden = true;
@@ -935,18 +857,7 @@
             return;
           }
 
-          title.textContent = activeWorkspace.title;
-          input.placeholder = activeWorkspace.placeholder;
-          input.value = "";
-          copy.textContent = "复制给 AI 助手";
-          overlay.hidden = false;
-          input.focus();
         });
-      });
-
-      document.querySelector("#workspace .close").addEventListener("click", closeWorkspace);
-      overlay.addEventListener("click", (event) => {
-        if (event.target === overlay) closeWorkspace();
       });
       guideClose.addEventListener("click", closeCoinGuide);
       coinGuide.addEventListener("click", (event) => {
@@ -965,21 +876,6 @@
         if (!learningCenter.hidden) closeLearningCenter();
         else if (!contactsDirectory.hidden) closeContactsDirectory();
         else if (!coinGuide.hidden) closeCoinGuide();
-        else if (!overlay.hidden) closeWorkspace();
-      });
-
-      copy.addEventListener("click", async () => {
-        if (!activeWorkspace) return;
-        const content = activeWorkspace.prompt + "\n\n" + (input.value.trim() || "请填写事实。");
-        try {
-          await navigator.clipboard.writeText(content);
-          copy.textContent = "已复制";
-        } catch {
-          input.value = content;
-          input.select();
-          document.execCommand("copy");
-          copy.textContent = "已复制";
-        }
       });
     </script>
   </body>

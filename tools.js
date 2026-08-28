@@ -14,16 +14,6 @@
 (function registerGuixinTools(root) {
   const tools = [
     {
-      id: "complaint",
-      kind: "workspace",
-      workspace: "complaint",
-      style: "complaint chat is-primary",
-      icon: "message-square",
-      title: "客户投诉",
-      description: "整理客诉事实并生成回复",
-      action: "立即开始",
-    },
-    {
       id: "jury",
       kind: "external",
       href: "https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/",
@@ -104,6 +94,7 @@
       description: "统一进入品质课程",
       action: "课程中心",
     },
+    { id: "reserved-1", kind: "placeholder" },
   ];
 
   const contacts = [
