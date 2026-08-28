@@ -395,43 +395,6 @@
 
       .directory-status.is-pending { color: var(--subtle); }
 
-      .course-list {
-        display: grid;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .course-item {
-        display: block;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 14px;
-        background: #fbfdfc;
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .course-item:hover,
-      .course-item:focus-visible {
-        border-color: #a9dec2;
-        outline: 0;
-      }
-
-      .course-item strong { display: block; font-size: 14px; }
-      .course-item span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; }
-
-      .empty-state {
-        margin-top: 20px;
-        border: 1px dashed #dce7e0;
-        border-radius: 14px;
-        padding: 24px 18px;
-        background: #fbfdfc;
-        text-align: center;
-      }
-
-      .empty-state strong { display: block; font-size: 14px; }
-      .empty-state span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; }
-
       @media (max-width: 1024px) {
         .site { width: min(100% - 40px, 940px); }
         main { padding: 30px 0 38px; }
@@ -565,67 +528,67 @@
 
       <main>
         <section class="tool-grid" id="tool-grid" aria-label="归心九宫格模块">
-          <a class="tool-card jury person" href="https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/" target="_top" aria-label="陪审团，打开链接">
+          <a class="tool-card jury person" href="https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/" target="_top" aria-label="争议陪审，处理争议">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
-            <h2>陪审团</h2>
-            <p>处理争议与分歧</p>
-            <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
+            <h2>争议陪审</h2>
+            <p>处理门店争议与分歧</p>
+            <span class="card-action">处理争议 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="tool-card governance bank" href="https://app-moma.ke.com/cmy" target="_top" aria-label="共治理事会，打开链接">
+          <a class="tool-card governance bank" href="https://app-moma.ke.com/cmy" target="_top" aria-label="区域共治，进入共治">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></svg></span>
-            <h2>共治理事会</h2>
-            <p>协同区域问题</p>
-            <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
+            <h2>区域共治</h2>
+            <p>协同解决区域问题</p>
+            <span class="card-action">进入共治 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="tool-card supervision eye" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" target="_top" aria-label="监察一码通，打开链接">
+          <a class="tool-card supervision eye" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" target="_top" aria-label="监察反馈，提交反馈">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
-            <h2>监察一码通</h2>
-            <p>提交监察问题</p>
-            <span class="card-action">打开链接 <span class="arrow" aria-hidden="true">↗</span></span>
+            <h2>监察反馈</h2>
+            <p>提交监察相关问题</p>
+            <span class="card-action">提交反馈 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <a class="tool-card credit badge-alert" href="https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11" target="_top" aria-label="信用分处罚，打开查询">
+          <a class="tool-card credit badge-alert" href="https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11" target="_top" aria-label="信用处罚查询，查询记录">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg></span>
-            <h2>信用分处罚</h2>
+            <h2>信用处罚查询</h2>
             <p>查询近一年处罚记录</p>
-            <span class="card-action">打开查询 <span class="arrow" aria-hidden="true">↗</span></span>
+            <span class="card-action">查询记录 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <button class="tool-card coins earn" type="button" data-workspace="coins" aria-label="赚币指南，查看指南">
+          <button class="tool-card coins earn" type="button" data-workspace="coins" aria-label="贝壳币指南，查看指南">
             <span class="card-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48"/><path d="M15 6h1v4"/><path d="m6.134 14.768.866-.5 2 3.464"/><circle cx="16" cy="8" r="6"/></svg></span>
-            <h2>赚币指南</h2>
-            <p>查看当期赚币路径</p>
+            <h2>贝壳币指南</h2>
+            <p>查看当期贝壳币获取方式</p>
             <span class="card-action">查看指南 <span class="arrow" aria-hidden="true">→</span></span>
           </button>
 
-          <a class="tool-card complaint-board dashboard" href="https://moma.ke.com/chat/aec0f833-f638-4404-82bf-9fa66d71c947" target="_top" aria-label="链家客诉，打开看板">
+          <a class="tool-card complaint-board dashboard" href="https://app-fly.ke.com/aec0f833-f638-4404-82bf-9fa66d71c947" target="_top" aria-label="链家客诉看板，查看看板">
             <span class="card-icon card-icon-text" aria-hidden="true">诉</span>
-            <h2>链家客诉</h2>
-            <p>查看客诉工单与问题数据</p>
-            <span class="card-action">打开看板 <span class="arrow" aria-hidden="true">↗</span></span>
+            <h2>链家客诉看板</h2>
+            <p>查看链家客诉数据</p>
+            <span class="card-action">查看看板 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
 
-          <button class="tool-card contacts directory" type="button" data-workspace="contacts" aria-label="模块负责人，查看名单">
+          <button class="tool-card contacts directory" type="button" data-workspace="contacts" aria-label="模块负责人，查看联系人">
             <span class="card-icon card-icon-text" aria-hidden="true">联</span>
             <h2>模块负责人</h2>
-            <p>查看模块负责人和联系人</p>
-            <span class="card-action">查看名单 <span class="arrow" aria-hidden="true">→</span></span>
+            <p>查找各模块负责人</p>
+            <span class="card-action">查看联系人 <span class="arrow" aria-hidden="true">→</span></span>
           </button>
 
-          <button class="tool-card learning course" type="button" data-workspace="learning" aria-label="课程学习，课程中心">
+          <a class="tool-card learning course" href="https://study.ke.com/homePage" target="_top" aria-label="在线学习，开始学习">
             <span class="card-icon card-icon-text" aria-hidden="true">学</span>
-            <h2>课程学习</h2>
-            <p>统一进入品质课程</p>
-            <span class="card-action">课程中心 <span class="arrow" aria-hidden="true">→</span></span>
-          </button>
+            <h2>在线学习</h2>
+            <p>进入贝壳在线课程</p>
+            <span class="card-action">开始学习 <span class="arrow" aria-hidden="true">↗</span></span>
+          </a>
 
-          <a class="tool-card beilian quality-board" href="https://app-moma.ke.com/sz" target="_top" aria-label="深圳贝联客诉看板，打开看板">
+          <a class="tool-card beilian quality-board" href="https://app-moma.ke.com/sz" target="_top" aria-label="贝联客诉看板，查看看板">
             <span class="card-icon card-icon-text" aria-hidden="true">品</span>
-            <h2>深圳贝联客诉看板</h2>
-            <p>查看贝联服务品质数据</p>
-            <span class="card-action">打开看板 <span class="arrow" aria-hidden="true">↗</span></span>
+            <h2>贝联客诉看板</h2>
+            <p>查看贝联客诉数据</p>
+            <span class="card-action">查看看板 <span class="arrow" aria-hidden="true">↗</span></span>
           </a>
         </section>
       </main>
@@ -635,8 +598,8 @@
 
     <div class="overlay" id="coin-guide" hidden>
       <section class="dialog guide-dialog" role="dialog" aria-modal="true" aria-labelledby="coin-guide-title">
-        <button class="close guide-close" type="button" aria-label="关闭赚币指南">×</button>
-        <h2 id="coin-guide-title">赚币指南</h2>
+        <button class="close guide-close" type="button" aria-label="关闭贝壳币指南">×</button>
+        <h2 id="coin-guide-title">贝壳币指南</h2>
         <p class="guide-intro">先找明确写有“贝壳币奖励”的当期任务，再行动。</p>
 
         <div class="earn-grid">
@@ -674,19 +637,7 @@
       </section>
     </div>
 
-    <div class="overlay" id="learning-center" hidden>
-      <section class="dialog directory-dialog" role="dialog" aria-modal="true" aria-labelledby="learning-title">
-        <button class="close learning-close" type="button" aria-label="关闭课程学习">×</button>
-        <h2 id="learning-title">课程学习</h2>
-        <div class="course-list" id="course-list"></div>
-        <div class="empty-state" id="course-empty" hidden>
-          <strong>课程正在接入</strong>
-          <span>课程链接确认后会在这里直接打开</span>
-        </div>
-      </section>
-    </div>
-
-    <script src="./tools.js?v=20260828-4"></script>
+    <script src="./tools.js?v=20260828-5"></script>
     <script>
       const iconSvgs = {
         "user-round": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>',
@@ -761,20 +712,13 @@
         contacts: {
           type: "contacts",
         },
-        learning: {
-          type: "learning",
-        },
       };
 
       const coinGuide = document.getElementById("coin-guide");
       const contactsDirectory = document.getElementById("contacts-directory");
-      const learningCenter = document.getElementById("learning-center");
       const guideClose = document.querySelector(".guide-close");
       const contactsClose = document.querySelector(".contacts-close");
-      const learningClose = document.querySelector(".learning-close");
       const contactList = document.getElementById("contact-list");
-      const courseList = document.getElementById("course-list");
-      const courseEmpty = document.getElementById("course-empty");
       let activeWorkspace = null;
 
       function closeCoinGuide() {
@@ -784,11 +728,6 @@
 
       function closeContactsDirectory() {
         contactsDirectory.hidden = true;
-        activeWorkspace = null;
-      }
-
-      function closeLearningCenter() {
-        learningCenter.hidden = true;
         activeWorkspace = null;
       }
 
@@ -823,27 +762,7 @@
         contactList.replaceChildren(...rows);
       }
 
-      function renderCourses() {
-        const courses = window.GUIXIN_COURSES || [];
-        const rows = courses.map((course) => {
-          const row = document.createElement("a");
-          row.className = "course-item";
-          row.href = course.href;
-          row.target = "_top";
-
-          const courseName = document.createElement("strong");
-          courseName.textContent = course.title;
-          const description = document.createElement("span");
-          description.textContent = course.description || "打开课程";
-          row.append(courseName, description);
-          return row;
-        });
-        courseList.replaceChildren(...rows);
-        courseEmpty.hidden = courses.length > 0;
-      }
-
       renderContacts();
-      renderCourses();
 
       document.querySelectorAll("[data-workspace]").forEach((button) => {
         button.addEventListener("click", () => {
@@ -862,12 +781,6 @@
             return;
           }
 
-          if (activeWorkspace.type === "learning") {
-            learningCenter.hidden = false;
-            learningClose.focus();
-            return;
-          }
-
         });
       });
       guideClose.addEventListener("click", closeCoinGuide);
@@ -878,14 +791,9 @@
       contactsDirectory.addEventListener("click", (event) => {
         if (event.target === contactsDirectory) closeContactsDirectory();
       });
-      learningClose.addEventListener("click", closeLearningCenter);
-      learningCenter.addEventListener("click", (event) => {
-        if (event.target === learningCenter) closeLearningCenter();
-      });
       document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
-        if (!learningCenter.hidden) closeLearningCenter();
-        else if (!contactsDirectory.hidden) closeContactsDirectory();
+        if (!contactsDirectory.hidden) closeContactsDirectory();
         else if (!coinGuide.hidden) closeCoinGuide();
       });
     </script>
