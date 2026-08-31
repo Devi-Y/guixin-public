@@ -6,7 +6,7 @@
  * - description：桌面端的一句话说明（手机端不展示）
  * - href：同事提供的外部链接
  * - kind：external 为外部链接；workspace 为归心内置工作台
- * - iconText：没有现成图标时，在图标位展示的单字
+ * - icon：与页面 iconSvgs 对应的图标名称
  * - healthCheck：browser 表示该内部链接只在经纪人浏览器中验证
  *
  * 九宫格始终保留 9 个位置。启用新模块时，将一个 placeholder 替换为模块配置即可。
@@ -55,6 +55,26 @@
       action: "查询记录",
     },
     {
+      id: "complaint-dashboard",
+      kind: "external",
+      href: "https://app-fly.ke.com/aec0f833-f638-4404-82bf-9fa66d71c947",
+      style: "complaint-board dashboard",
+      icon: "message-square-warning",
+      title: "链家客诉看板",
+      description: "查看链家客诉数据",
+      action: "查看看板",
+    },
+    {
+      id: "beilian-quality",
+      kind: "external",
+      href: "https://app-moma.ke.com/sz",
+      style: "beilian quality-board",
+      icon: "chart-no-axes-combined",
+      title: "贝联客诉看板",
+      description: "查看贝联客诉数据",
+      action: "查看看板",
+    },
+    {
       id: "coin-guide",
       kind: "workspace",
       workspace: "coins",
@@ -65,21 +85,11 @@
       action: "查看指南",
     },
     {
-      id: "complaint-dashboard",
-      kind: "external",
-      href: "https://app-fly.ke.com/aec0f833-f638-4404-82bf-9fa66d71c947",
-      style: "complaint-board dashboard",
-      iconText: "诉",
-      title: "链家客诉看板",
-      description: "查看链家客诉数据",
-      action: "查看看板",
-    },
-    {
       id: "contacts",
       kind: "workspace",
       workspace: "contacts",
       style: "contacts directory",
-      iconText: "联",
+      icon: "users-round",
       title: "模块负责人",
       description: "查找各模块负责人",
       action: "查看联系人",
@@ -89,27 +99,17 @@
       kind: "external",
       href: "https://study.ke.com/homePage",
       style: "learning course",
-      iconText: "学",
+      icon: "book-open-check",
       title: "在线学习",
       description: "进入贝壳在线课程",
       action: "开始学习",
     },
-    {
-      id: "beilian-quality",
-      kind: "external",
-      href: "https://app-moma.ke.com/sz",
-      style: "beilian quality-board",
-      iconText: "品",
-      title: "贝联客诉看板",
-      description: "查看贝联客诉数据",
-      action: "查看看板",
-    },
   ];
 
   const contacts = [
-    { module: "监察反馈", owner: "陈婉瑜", moduleId: "supervision" },
     { module: "争议陪审", owner: "李昊轩", moduleId: "jury" },
     { module: "区域共治", owner: "陈梦怡", moduleId: "governance" },
+    { module: "监察反馈", owner: "陈婉瑜", moduleId: "supervision" },
     { module: "信用处罚查询", owner: "李昊轩", moduleId: "credit-penalty" },
     { module: "链家客诉看板", owner: "陈瑜", moduleId: "complaint-dashboard" },
     { module: "贝联客诉看板", owner: "胡佳伟", moduleId: "beilian-quality" },
