@@ -99,6 +99,7 @@
       id: "learning",
       kind: "external",
       href: "https://study.ke.com/homePage",
+      healthCheck: "browser",
       style: "learning course",
       icon: "book-open-check",
       title: "在线学习",
