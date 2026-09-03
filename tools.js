@@ -58,6 +58,7 @@
       id: "complaint-dashboard",
       kind: "external",
       href: "https://app-fly.ke.com/aec0f833-f638-4404-82bf-9fa66d71c947",
+      healthCheck: "browser",
       style: "complaint-board dashboard",
       icon: "message-square-warning",
       title: "链家客诉看板",
