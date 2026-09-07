@@ -262,8 +262,13 @@ export default {
     }
 
     const url = new URL(request.url);
-    if (request.method === "GET" && url.pathname === "/api/health") {
-      return json(request, { ok: true, database: Boolean(env.DB) });
+    if (["GET", "HEAD"].includes(request.method) && url.pathname === "/api/health") {
+      const response = json(request, { ok: true, database: Boolean(env.DB) });
+      const headers = new Headers(response.headers);
+      headers.delete("Content-Length");
+      return request.method === "HEAD"
+        ? new Response(null, { status: response.status, headers })
+        : response;
     }
     if (request.method === "POST" && url.pathname === "/api/events") {
       return insertEvents(request, env, ctx);
@@ -271,8 +276,13 @@ export default {
     if (request.method === "GET" && url.pathname === "/api/summary") {
       return readSummary(request, env);
     }
-    if (request.method === "GET" && url.pathname === "/") {
-      return text(request, "归心访问统计服务正常");
+    if (["GET", "HEAD"].includes(request.method) && url.pathname === "/") {
+      const response = text(request, "归心访问统计服务正常");
+      const headers = new Headers(response.headers);
+      headers.delete("Content-Length");
+      return request.method === "HEAD"
+        ? new Response(null, { status: response.status, headers })
+        : response;
     }
     return text(request, "Not found", 404);
   },
