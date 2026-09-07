@@ -1,0 +1,11 @@
+name = "guixin-analytics"
+main = "worker.js"
+compatibility_date = "2026-05-25"
+workers_dev = true
+
+# 运行 `wrangler d1 create guixin-analytics --location apac` 后，
+# 把返回的 database_id 填到这里，再执行部署。
+[[d1_databases]]
+binding = "DB"
+database_name = "guixin-analytics"
+database_id = "6d6ecbe9-77db-443c-ad91-b61ca3b5de4f"

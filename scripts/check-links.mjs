@@ -1,6 +1,10 @@
 import tools from "../tools.js";
+import fs from "node:fs";
 
 const publicUrl = "https://devi-y.github.io/guixin-public/";
+const analyticsPageUrl = `${publicUrl}analytics.html`;
+const analyticsConfig = fs.readFileSync(new URL("../analytics-config.js", import.meta.url), "utf8");
+const analyticsEndpoint = analyticsConfig.match(/endpoint:\s*[\"']([^\"']*)[\"']/)?.[1] || "";
 const timeoutMs = 15000;
 const runningInGitHubActions = process.env.GITHUB_ACTIONS === "true";
 
@@ -9,6 +13,8 @@ const browserOnlyTools = externalTools.filter((tool) => tool.healthCheck === "br
 
 const targets = [
   { name: "归心公开页", url: publicUrl },
+  { name: "访问统计后台", url: analyticsPageUrl },
+  ...(analyticsEndpoint ? [{ name: "访问统计服务", url: `${analyticsEndpoint}/api/health` }] : []),
   ...externalTools
     .filter((tool) => !(runningInGitHubActions && tool.healthCheck === "browser"))
     .map((tool) => ({ name: tool.title, url: tool.href })),
