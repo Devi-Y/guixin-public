@@ -23,7 +23,7 @@ wrangler deploy
 
 ## 启用企业微信登录
 
-企业微信应用管理员需要先把 Worker 的回调域名设置为可信域名。建议使用自己持有的 HTTPS 域名（例如后续接入 `szbk.pzgj.com`），不要把 GitHub Pages 地址当作回调服务端。然后在 Worker 中配置以下 Secret：
+企业微信应用管理员需要先把 Worker 的回调域名设置为可信域名。建议使用自己持有的 HTTPS 域名（例如后续接入 `szbk.pzgj.com`），不要把 GitHub Pages 地址当作回调服务端。企业微信内置 WebView 使用 OAuth 免跳转，普通电脑浏览器使用企业微信官方扫码/登录页。然后在 Worker 中配置以下 Secret：
 
 ```bash
 wrangler secret put WECOM_CORP_ID
@@ -48,7 +48,7 @@ endpoint: "https://你的 Worker 地址.workers.dev",
 
 - `GET /api/health`：检查服务是否在线。
 - `GET /api/auth/status`：检查企业微信授权是否已配置，不返回密钥。
-- `GET /api/auth/wecom/start`：开始企业微信官方网页授权。
+- `GET /api/auth/wecom/start`：按终端开始企业微信官方 Web 登录（内置 WebView 免跳转或普通浏览器扫码）。
 - `GET /api/auth/wecom/callback`：接收一次性授权码并建立短期 HttpOnly 会话。
 - `GET /api/me`：返回当前会话的登录状态和显示姓名。
 - `POST /api/auth/logout`：清除当前会话。

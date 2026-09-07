@@ -185,6 +185,11 @@ function authCallbackUrl(request, env) {
   return `${new URL(request.url).origin}/api/auth/wecom/callback`;
 }
 
+function isWeComWebview(request) {
+  const userAgent = request.headers.get("User-Agent") || "";
+  return /wxwork|wecom/i.test(userAgent);
+}
+
 async function fetchJson(url) {
   const response = await fetch(url, { headers: { "Accept": "application/json" } });
   const payload = await response.json().catch(() => ({}));
@@ -211,13 +216,24 @@ async function startWeComAuth(request, env) {
     return json(request, { error: "database_write_failed" }, 503);
   }
 
-  const authUrl = new URL("https://open.weixin.qq.com/connect/oauth2/authorize");
+  if (isWeComWebview(request)) {
+    const authUrl = new URL("https://open.weixin.qq.com/connect/oauth2/authorize");
+    authUrl.searchParams.set("appid", env.WECOM_CORP_ID);
+    authUrl.searchParams.set("redirect_uri", authCallbackUrl(request, env));
+    authUrl.searchParams.set("response_type", "code");
+    authUrl.searchParams.set("scope", "snsapi_base");
+    authUrl.searchParams.set("state", state);
+    return redirect(`${authUrl.toString()}#wechat_redirect`);
+  }
+
+  const authUrl = new URL("https://login.work.weixin.qq.com/wwlogin/sso/login");
+  authUrl.searchParams.set("login_type", "CorpApp");
   authUrl.searchParams.set("appid", env.WECOM_CORP_ID);
+  authUrl.searchParams.set("agentid", env.WECOM_AGENT_ID);
   authUrl.searchParams.set("redirect_uri", authCallbackUrl(request, env));
-  authUrl.searchParams.set("response_type", "code");
-  authUrl.searchParams.set("scope", "snsapi_base");
   authUrl.searchParams.set("state", state);
-  return redirect(`${authUrl.toString()}#wechat_redirect`);
+  authUrl.searchParams.set("lang", "zh");
+  return redirect(authUrl.toString());
 }
 
 async function finishWeComAuth(request, env) {
