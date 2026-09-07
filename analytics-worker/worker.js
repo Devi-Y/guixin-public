@@ -249,7 +249,7 @@ async function finishWeComAuth(request, env) {
     tokenUrl.searchParams.set("corpsecret", env.WECOM_SECRET);
     const tokenPayload = await fetchJson(tokenUrl.toString());
 
-    const userInfoUrl = new URL("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo");
+    const userInfoUrl = new URL("https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo");
     userInfoUrl.searchParams.set("access_token", tokenPayload.access_token);
     userInfoUrl.searchParams.set("code", code);
     const userInfo = await fetchJson(userInfoUrl.toString());
