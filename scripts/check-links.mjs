@@ -10,10 +10,12 @@ const runningInGitHubActions = process.env.GITHUB_ACTIONS === "true";
 
 const externalTools = tools.filter((tool) => tool.kind === "external");
 const browserOnlyTools = externalTools.filter((tool) => tool.healthCheck === "browser");
+const staticAssets = ["tools.js", "analytics-config.js", "analytics.js", "auth.js", "analytics-dashboard.js"];
 
 const targets = [
   { name: "归心公开页", url: publicUrl },
   { name: "访问统计后台", url: analyticsPageUrl },
+  ...staticAssets.map((asset) => ({ name: `静态资源 ${asset}`, url: `${publicUrl}${asset}` })),
   ...(analyticsEndpoint ? [{ name: "访问统计服务", url: `${analyticsEndpoint}/api/health` }] : []),
   ...externalTools
     .filter((tool) => !(runningInGitHubActions && tool.healthCheck === "browser"))

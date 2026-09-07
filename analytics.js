@@ -80,21 +80,9 @@
     };
   }
 
-  function send(event, useBeacon = false) {
+  function send(event) {
     const body = JSON.stringify({ events: [event] });
     const eventsUrl = `${endpoint}/api/events`;
-
-    if (useBeacon && typeof navigator.sendBeacon === "function") {
-      try {
-        const accepted = navigator.sendBeacon(
-          eventsUrl,
-          new Blob([body], { type: "application/json" }),
-        );
-        if (accepted) return;
-      } catch {
-        // 继续尝试 fetch，部分浏览器会限制 sendBeacon 的跨域请求。
-      }
-    }
 
     fetch(eventsUrl, {
       method: "POST",
@@ -102,9 +90,14 @@
       headers: { "Content-Type": "application/json" },
       keepalive: true,
       mode: "cors",
-      credentials: "omit",
+      credentials: "include",
     }).catch(() => {
-      // 统计失败不能阻塞主页面，也不向用户展示错误。
+      if (typeof navigator.sendBeacon !== "function") return;
+      try {
+        navigator.sendBeacon(eventsUrl, new Blob([body], { type: "application/json" }));
+      } catch {
+        // 统计失败不能阻塞主页面，也不向用户展示错误。
+      }
     });
   }
 
@@ -135,7 +128,7 @@
     document.addEventListener("click", (event) => {
       const card = event.target.closest?.(".tool-card[data-tool-id]");
       if (!card) return;
-      send(createEvent("tool_click", card.dataset.toolId), true);
+      send(createEvent("tool_click", card.dataset.toolId));
     });
   }
 

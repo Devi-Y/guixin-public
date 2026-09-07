@@ -111,6 +111,61 @@
         letter-spacing: 0.01em;
       }
 
+      .header-tools {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-left: auto;
+      }
+
+      .account-control {
+        display: inline-flex;
+        min-height: 34px;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 6px 4px 11px;
+        background: rgba(255, 255, 255, .82);
+        color: var(--muted);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .account-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #b9c4be;
+      }
+
+      .account-control.is-signed-in .account-dot { background: var(--green); }
+
+      #account-label {
+        max-width: 170px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .account-link,
+      .account-logout {
+        border: 0;
+        padding: 4px 6px;
+        background: transparent;
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .account-link:hover,
+      .account-link:focus-visible,
+      .account-logout:hover,
+      .account-logout:focus-visible {
+        text-decoration: underline;
+        outline: 0;
+      }
+
       main {
         padding: 18px 0 22px;
       }
@@ -517,13 +572,19 @@
         .brand-mark { width: 30px; height: 30px; border-radius: 10px; font-size: 14px; }
         .brand-name { font-size: 19px; }
 
+        .header-tools { min-width: 0; gap: 8px; }
+
         .tagline {
-          max-width: 195px;
+          max-width: 130px;
           overflow: hidden;
           font-size: 12px;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
+
+        .account-control { gap: 4px; padding-left: 8px; font-size: 11px; }
+        #account-label { max-width: 94px; }
+        .account-link, .account-logout { padding-inline: 4px; font-size: 11px; }
 
         main { padding: 0; }
 
@@ -601,6 +662,10 @@
 
         .analytics-consent span { max-width: 165px; }
       }
+
+      @media (max-width: 380px) {
+        .tagline { display: none; }
+      }
     </style>
   </head>
   <body>
@@ -610,7 +675,15 @@
           <span class="brand-mark" aria-hidden="true">归</span>
           <h1 class="brand-name">归心</h1>
         </div>
-        <p class="tagline">回归到客户服务的初心</p>
+        <div class="header-tools">
+          <p class="tagline">回归到客户服务的初心</p>
+          <div class="account-control" id="account-control" hidden>
+            <span class="account-dot" aria-hidden="true"></span>
+            <span id="account-label"></span>
+            <a class="account-link" id="account-login" href="#">企业微信登录</a>
+            <button class="account-logout" id="account-logout" type="button" hidden>退出</button>
+          </div>
+        </div>
       </header>
 
       <main>
@@ -725,8 +798,9 @@
     </div>
 
     <script src="./tools.js?v=20260903-2"></script>
-    <script src="./analytics-config.js?v=20260907-2"></script>
-    <script src="./analytics.js?v=20260907-1"></script>
+    <script src="./analytics-config.js?v=20260907-3"></script>
+    <script src="./analytics.js?v=20260907-2"></script>
+    <script src="./auth.js?v=20260907-2"></script>
     <script>
       const iconSvgs = {
         "user-round": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>',

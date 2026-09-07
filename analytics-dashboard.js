@@ -93,14 +93,38 @@
 
   function renderSummary(summary) {
     const cards = [
-      ["访问次数", summary.pageViews],
-      ["独立访客", summary.uniqueVisitors],
-      ["模块点击", summary.toolClicks],
-      ["最近访问", formatTime(summary.lastSeen)],
+      ["访问次数", summary.pageViews, `近 ${rangeSelect.value} 天`],
+      ["独立访客", summary.uniqueVisitors, "匿名编号去重"],
+      ["模块点击", summary.toolClicks, "所有入口"],
+      ["已关联身份", summary.verifiedVisitors, "企业微信成员"],
     ];
-    summaryGrid.innerHTML = cards.map(([label, value]) => `
-      <div class="panel summary-card"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value ?? "0")}</strong></div>
+    summaryGrid.innerHTML = cards.map(([label, value, note]) => `
+      <div class="metric-card">
+        <span class="metric-label">${escapeHtml(label)}</span>
+        <strong class="metric-value">${escapeHtml(Number(value || 0).toLocaleString("zh-CN"))}</strong>
+        <span class="metric-note">${escapeHtml(note)}</span>
+      </div>
     `).join("");
+  }
+
+  function renderDaily(items) {
+    if (!items.length) {
+      dailyList.innerHTML = '<p class="trend-empty">还没有访问数据</p>';
+      return;
+    }
+    const points = items.slice(-14);
+    const max = Math.max(...points.map((item) => Number(item.pageViews) || 0), 1);
+    dailyList.innerHTML = points.map((item) => {
+      const value = Number(item.pageViews) || 0;
+      const height = value ? Math.max(7, (value / max) * 100) : 3;
+      return `
+        <div class="trend-column" title="${escapeHtml(formatDate(item.day))}：${escapeHtml(value)} 次">
+          <span class="trend-value">${escapeHtml(value)}</span>
+          <span class="trend-bar-wrap"><span class="trend-bar" style="height:${height}%"></span></span>
+          <span class="trend-label">${escapeHtml(formatDate(item.day))}</span>
+        </div>
+      `;
+    }).join("");
   }
 
   function renderToolBars(items) {
@@ -108,8 +132,9 @@
       toolBars.innerHTML = '<p class="empty">还没有模块点击</p>';
       return;
     }
-    const max = Math.max(...items.map((item) => Number(item.clicks) || 0), 1);
-    toolBars.innerHTML = items.map((item) => `
+    const visibleItems = items.slice(0, 8);
+    const max = Math.max(...visibleItems.map((item) => Number(item.clicks) || 0), 1);
+    toolBars.innerHTML = visibleItems.map((item) => `
       <div class="bar-row">
         <span class="bar-label" title="${escapeHtml(toolName(item.toolId))}">${escapeHtml(toolName(item.toolId))}</span>
         <span class="bar-track"><span class="bar-fill" style="width:${Math.max(4, (Number(item.clicks) / max) * 100)}%"></span></span>
@@ -118,31 +143,22 @@
     `).join("");
   }
 
-  function renderDaily(items) {
-    if (!items.length) {
-      dailyList.innerHTML = '<p class="empty">还没有访问数据</p>';
-      return;
-    }
-    dailyList.innerHTML = items.slice(-14).reverse().map((item) => `
-      <div class="daily-row"><strong>${escapeHtml(formatDate(item.day))}</strong><span>访问 ${escapeHtml(item.pageViews)}</span><span>点击 ${escapeHtml(item.toolClicks)}</span></div>
-    `).join("");
-  }
-
   function renderVisitors(items) {
     if (!items.length) {
       visitorList.innerHTML = '<p class="empty">还没有访客</p>';
       return;
     }
-    visitorList.innerHTML = items.map((item) => {
+    visitorList.innerHTML = items.slice(0, 12).map((item) => {
       const visitor = String(item.visitorId || "");
       const shortId = visitor.length > 8 ? visitor.slice(-8) : visitor;
       const clicks = Number(item.clicks) || 0;
+      const verified = Boolean(item.verified || item.displayName);
+      const title = verified ? (item.displayName || "企业微信成员") : `访客 ${shortId}`;
+      const badge = verified ? '<i class="identity-badge">企业微信</i>' : "";
       return `
         <div class="visitor-row">
-          <div class="visitor-main"><strong>访客 ${escapeHtml(shortId)}</strong><span>${escapeHtml(item.events)} 条记录 · 点击 ${escapeHtml(clicks)} 次</span></div>
-          <span>${escapeHtml(deviceName(item.device))}</span>
-          <span class="visitor-time">${escapeHtml(formatTime(item.lastSeen))}</span>
-          <span>${escapeHtml(item.lastToolId ? toolName(item.lastToolId) : "仅访问")}</span>
+          <div class="visitor-main"><strong>${escapeHtml(title)}${badge}</strong><span>${verified ? "已关联身份" : "匿名访客"} · ${escapeHtml(deviceName(item.device))} · 点击 ${escapeHtml(clicks)} 次</span></div>
+          <span class="visitor-side">${escapeHtml(formatTime(item.lastSeen))}</span>
         </div>
       `;
     }).join("");
@@ -153,15 +169,15 @@
       eventList.innerHTML = '<p class="empty">还没有活动</p>';
       return;
     }
-    eventList.innerHTML = items.map((item) => {
+    eventList.innerHTML = items.slice(0, 12).map((item) => {
       const visitor = String(item.visitorId || "");
       const shortId = visitor.length > 8 ? visitor.slice(-8) : visitor;
-      const isClick = item.eventType === "tool_click";
+      const identity = item.displayName || `访客 ${shortId}`;
+      const action = item.eventType === "tool_click" ? `点击 ${toolName(item.toolId)}` : "进入网站";
       return `
         <div class="event-row">
-          <div class="event-main"><strong>访客 ${escapeHtml(shortId)}</strong><span>${escapeHtml(deviceName(item.device))} · ${escapeHtml(item.referrerOrigin || "直接进入")}</span></div>
-          <span class="event-type">${isClick ? `点击 ${escapeHtml(toolName(item.toolId))}` : "进入网站"}</span>
-          <span class="event-time">${escapeHtml(formatTime(item.createdAt))}</span>
+          <div class="event-main"><strong>${escapeHtml(identity)}</strong><span>${escapeHtml(deviceName(item.device))} · ${escapeHtml(item.referrerOrigin || "直接进入")}</span></div>
+          <span class="event-side">${escapeHtml(action)}<br>${escapeHtml(formatTime(item.createdAt))}</span>
         </div>
       `;
     }).join("");
@@ -190,11 +206,11 @@
       }
       if (!response.ok) throw new Error(payload.error || "统计服务暂时不可用");
       renderSummary(payload.summary || {});
-      renderToolBars(payload.topTools || []);
       renderDaily(payload.daily || []);
+      renderToolBars(payload.topTools || []);
       renderVisitors(payload.recentVisitors || []);
       renderEvents(payload.recentEvents || []);
-      refreshStatus.textContent = `更新于 ${formatTime(new Date().toISOString())}`;
+      refreshStatus.textContent = `近 ${rangeSelect.value} 天 · 更新于 ${formatTime(new Date().toISOString())}`;
     } catch (error) {
       showError(error.message || "暂时无法连接统计服务，请稍后重试。");
     } finally {
@@ -203,8 +219,8 @@
     }
   }
 
-  if (!endpoint || !/^https:\/\//i.test(endpoint)) {
-    showState("setup");
+  if (!setupState || !loginState || !dashboard || !endpoint || !/^https:\/\//i.test(endpoint)) {
+    if (setupState) showState("setup");
     return;
   }
 
