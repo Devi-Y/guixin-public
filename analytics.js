@@ -5,16 +5,24 @@
   const consentVersion = String(config.consentVersion || "1");
 
   // 留空配置时保持纯静态站行为，不产生任何外部请求。
-  if (!endpoint || !/^https:\/\//i.test(endpoint)) return;
+  if (!endpoint || !/^https:\/\//i.test(endpoint)) {
+    const status = document.getElementById("privacy-current-status");
+    if (status) status.textContent = "统计暂不可用";
+    document.querySelectorAll("#enable-analytics, #disable-analytics").forEach((button) => { button.disabled = true; });
+    return;
+  }
 
   const consentKey = `guixin-analytics-consent:${consentVersion}`;
   const visitorKey = "guixin-analytics-visitor";
   const sessionKey = "guixin-analytics-session";
-  const consent = readStorage(window.localStorage, consentKey);
+  let consent = readStorage("localStorage", consentKey);
+  let visitorId = "";
+  let sessionId = "";
+  let pageViewSent = false;
 
   function readStorage(storage, key) {
     try {
-      return storage.getItem(key);
+      return root[storage].getItem(key);
     } catch {
       return null;
     }
@@ -22,7 +30,8 @@
 
   function writeStorage(storage, key, value) {
     try {
-      storage.setItem(key, value);
+      if (value === null) root[storage].removeItem(key);
+      else root[storage].setItem(key, value);
     } catch {
       // 隐私模式或存储被禁用时，统计自动降级，不影响页面使用。
     }
@@ -36,19 +45,19 @@
   }
 
   function getVisitorId() {
-    const existing = readStorage(window.localStorage, visitorKey);
-    if (existing) return existing;
-    const next = createId("v");
-    writeStorage(window.localStorage, visitorKey, next);
-    return next;
+    if (!visitorId) {
+      visitorId = readStorage("localStorage", visitorKey) || createId("v");
+      writeStorage("localStorage", visitorKey, visitorId);
+    }
+    return visitorId;
   }
 
   function getSessionId() {
-    const existing = readStorage(window.sessionStorage, sessionKey);
-    if (existing) return existing;
-    const next = createId("s");
-    writeStorage(window.sessionStorage, sessionKey, next);
-    return next;
+    if (!sessionId) {
+      sessionId = readStorage("sessionStorage", sessionKey) || createId("s");
+      writeStorage("sessionStorage", sessionKey, sessionId);
+    }
+    return sessionId;
   }
 
   function getDevice() {
@@ -81,6 +90,7 @@
   }
 
   function send(event) {
+    if (consent !== "granted") return;
     const body = JSON.stringify({ events: [event] });
     const eventsUrl = `${endpoint}/api/events`;
 
@@ -92,6 +102,7 @@
       mode: "cors",
       credentials: "include",
     }).catch(() => {
+      if (consent !== "granted") return;
       if (typeof navigator.sendBeacon !== "function") return;
       try {
         navigator.sendBeacon(eventsUrl, new Blob([body], { type: "application/json" }));
@@ -104,10 +115,9 @@
   function addConsentBar() {
     const bar = document.createElement("aside");
     bar.className = "analytics-consent";
-    bar.setAttribute("role", "dialog");
     bar.setAttribute("aria-label", "访问统计设置");
     bar.innerHTML = `
-      <span>为优化入口，记录匿名访问和模块点击</span>
+      <span>允许记录访问和模块点击？</span>
       <button type="button" data-consent="declined">暂不</button>
       <button type="button" class="is-primary" data-consent="granted">同意统计</button>
     `;
@@ -115,22 +125,63 @@
     bar.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-consent]");
       if (!button) return;
-      writeStorage(window.localStorage, consentKey, button.dataset.consent);
-      bar.remove();
-      if (button.dataset.consent === "granted") startTracking();
+      chooseConsent(button.dataset.consent);
     });
 
     document.body.append(bar);
+    document.body.classList.add("has-consent");
   }
 
   function startTracking() {
+    if (pageViewSent) return;
     send(createEvent("page_view"));
-    document.addEventListener("click", (event) => {
-      const card = event.target.closest?.(".tool-card[data-tool-id]");
-      if (!card) return;
-      send(createEvent("tool_click", card.dataset.toolId));
-    });
+    pageViewSent = true;
   }
+
+  function updateSettings() {
+    const status = document.getElementById("privacy-current-status");
+    if (status) status.textContent = consent === "granted" ? "统计已开启" : "统计未开启";
+  }
+
+  function chooseConsent(value) {
+    consent = value;
+    writeStorage("localStorage", consentKey, value);
+    document.querySelector(".analytics-consent")?.remove();
+    document.body.classList.remove("has-consent");
+    if (value === "granted") startTracking();
+    else {
+      visitorId = "";
+      sessionId = "";
+      pageViewSent = false;
+      writeStorage("localStorage", visitorKey, null);
+      writeStorage("sessionStorage", sessionKey, null);
+    }
+    updateSettings();
+  }
+
+  document.getElementById("enable-analytics")?.addEventListener("click", () => {
+    chooseConsent("granted");
+    document.dispatchEvent(new CustomEvent("guixin:close-dialog"));
+  });
+  document.getElementById("disable-analytics")?.addEventListener("click", () => {
+    chooseConsent("declined");
+    document.dispatchEvent(new CustomEvent("guixin:close-dialog"));
+  });
+  // 负责人目录中的入口也计入模块点击，共用一个委托监听器。
+  document.addEventListener("click", (event) => {
+    const entry = event.target.closest?.("[data-tool-id]");
+    if (entry && consent === "granted") send(createEvent("tool_click", entry.dataset.toolId));
+  });
+  updateSettings();
+  root.addEventListener("storage", (event) => {
+    if (event.key !== consentKey) return;
+    consent = event.newValue;
+    if (consent !== "granted") { visitorId = ""; sessionId = ""; pageViewSent = false; }
+    else startTracking();
+    document.querySelector(".analytics-consent")?.remove();
+    document.body.classList.remove("has-consent");
+    updateSettings();
+  });
 
   if (consent === "granted") {
     startTracking();

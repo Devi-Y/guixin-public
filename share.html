@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="referrer" content="no-referrer" />
     <meta name="theme-color" content="#087d4c" />
@@ -38,6 +38,13 @@
       img { display: block; width: min(100%, 244px); height: auto; margin: 25px auto 18px; image-rendering: pixelated; }
       .url { display: block; overflow-wrap: anywhere; color: #087d4c; font-size: 13px; line-height: 1.6; text-decoration: none; }
       .hint { margin-top: 18px; font-size: 12px; }
+      .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+      .button { display: block; min-height: 44px; border: 1px solid var(--line); border-radius: 11px; padding: 12px; background: #f4f9f6; color: #087d4c; font: inherit; font-size: 14px; font-weight: 650; cursor: pointer; text-decoration: none; }
+      .primary { grid-column: 1 / -1; border-color: #087d4c; background: #087d4c; color: white; }
+      a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+      .status { min-height: 1.5em; margin-top: 12px; font-size: 12px; }
+      .copy-field { width: 100%; margin-top: 12px; border: 1px solid var(--line); border-radius: 8px; padding: 10px; color: var(--ink); font: inherit; font-size: 12px; }
+      [hidden] { display: none !important; }
       @media (max-width: 420px) { body { padding: 14px; } main { padding: 32px 22px 24px; border-radius: 23px; } }
     </style>
   </head>
@@ -48,7 +55,31 @@
       <p>深圳贝壳品质工具箱</p>
       <img src="assets/guixin-qr.png" alt="归心公开页面二维码" />
       <a class="url" href="https://devi-y.github.io/guixin-public/">https://devi-y.github.io/guixin-public/</a>
-      <p class="hint">可直接保存二维码，用于公众号或视频号发布。</p>
+      <div class="actions">
+        <a class="button primary" href="./">打开归心</a>
+        <button class="button" id="copy-link" type="button" hidden>复制链接</button>
+        <a class="button" href="./assets/guixin-qr.png" download="归心二维码.png">保存二维码</a>
+      </div>
+      <input class="copy-field" id="copy-field" aria-label="归心公开链接" readonly hidden value="https://devi-y.github.io/guixin-public/" />
+      <p class="status" id="share-status" role="status"></p>
+      <p class="hint">在微信内可长按二维码保存或识别。</p>
     </main>
+    <script>
+      const copyButton = document.getElementById("copy-link");
+      const copyField = document.getElementById("copy-field");
+      const shareStatus = document.getElementById("share-status");
+      copyButton.hidden = false;
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(copyField.value);
+          shareStatus.textContent = "链接已复制，可以发给同事。";
+        } catch {
+          copyField.hidden = false;
+          copyField.focus();
+          copyField.select();
+          shareStatus.textContent = "请长按或复制下方已选中的链接。";
+        }
+      });
+    </script>
   </body>
 </html>

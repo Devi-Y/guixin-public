@@ -9,7 +9,7 @@
   root.GUIXIN_ANALYTICS_CONFIG = Object.freeze({
     endpoint: "https://guixin-analytics.guixin-analytics.workers.dev",
     site: "guixin-public",
-    consentVersion: "2026-09-07",
+    consentVersion: "2026-10-08",
     authReturnUrl: "https://devi-y.github.io/guixin-public/",
   });
 })(typeof globalThis !== "undefined" ? globalThis : window);

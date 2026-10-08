@@ -6,6 +6,8 @@
   const label = document.getElementById("account-label");
   const login = document.getElementById("account-login");
   const logout = document.getElementById("account-logout");
+  const notice = document.getElementById("site-notice");
+  let noticeTimer;
 
   if (!control || !login || !logout || !endpoint || !/^https:\/\//i.test(endpoint)) return;
 
@@ -13,6 +15,7 @@
 
   const authError = new URLSearchParams(root.location.search).get("auth_error");
   if (authError) {
+    showNotice(authError === "not_internal_member" ? "此账号没有归心应用权限，可继续使用首页入口。" : "登录未完成，可重试或继续使用首页入口。");
     try {
       const cleanUrl = new URL(root.location.href);
       cleanUrl.searchParams.delete("auth_error");
@@ -20,6 +23,14 @@
     } catch {
       // 当前环境不支持清理地址时，不影响后续登录。
     }
+  }
+
+  function showNotice(message) {
+    if (!notice) return;
+    notice.textContent = message;
+    notice.hidden = false;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { notice.hidden = true; }, 6000);
   }
 
   function showSignedOut() {
@@ -39,13 +50,15 @@
   }
 
   async function request(path, options = {}) {
-    const response = await fetch(`${endpoint}${path}`, {
-      ...options,
-      credentials: "include",
-      mode: "cors",
-      headers: { Accept: "application/json", ...(options.headers || {}) },
-    });
-    return { response, payload: await response.json().catch(() => ({})) };
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(`${endpoint}${path}`, {
+        ...options, signal: controller.signal, credentials: "include", mode: "cors",
+        headers: { Accept: "application/json", ...(options.headers || {}) },
+      });
+      return { response, payload: await response.json().catch(() => ({})) };
+    } finally { clearTimeout(timer); }
   }
 
   async function loadIdentity() {
@@ -64,10 +77,13 @@
   logout.addEventListener("click", async () => {
     logout.disabled = true;
     try {
-      await request("/api/auth/logout", { method: "POST" });
+      const result = await request("/api/auth/logout", { method: "POST" });
+      if (!result.response.ok) throw new Error("logout_failed");
+      showSignedOut();
+    } catch {
+      showNotice("退出暂未完成，请稍后重试。");
     } finally {
       logout.disabled = false;
-      showSignedOut();
     }
   });
 

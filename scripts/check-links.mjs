@@ -10,7 +10,7 @@ const runningInGitHubActions = process.env.GITHUB_ACTIONS === "true";
 
 const externalTools = tools.filter((tool) => tool.kind === "external");
 const browserOnlyTools = externalTools.filter((tool) => tool.healthCheck === "browser");
-const staticAssets = ["tools.js", "analytics-config.js", "analytics.js", "auth.js", "analytics-dashboard.js"];
+const staticAssets = ["share.html", "tools.js", "analytics-config.js", "analytics.js", "auth.js", "analytics-dashboard.js", "assets/favicon.svg", "assets/guixin-share.png", "assets/guixin-qr.png"];
 
 const targets = [
   { name: "归心公开页", url: publicUrl },
@@ -38,13 +38,18 @@ async function request(url, method) {
 }
 
 async function inspect(target) {
-  try {
-    const response = await request(target.url, "HEAD");
-    const healthy = response.status >= 200 && response.status < 400;
-    return { ...target, healthy, status: response.status, finalUrl: response.url };
-  } catch (error) {
-    return { ...target, healthy: false, status: "请求失败", error: error.message };
+  let result;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await request(target.url, "HEAD");
+      const healthy = response.status >= 200 && response.status < 400;
+      result = { ...target, healthy, status: response.status, finalUrl: response.url };
+      if (healthy || response.status < 500) break;
+    } catch (error) {
+      result = { ...target, healthy: false, status: "请求失败", error: error.message };
+    }
   }
+  return result;
 }
 
 const results = await Promise.all(targets.map(inspect));
@@ -67,6 +72,6 @@ if (failed.length) {
   if (runningInGitHubActions && browserOnlyTools.length) {
     console.log("\n云端可检入口均可访问；内部入口需在经纪人浏览器中复核。");
   } else {
-    console.log("\n全部入口当前可访问。");
+    console.log("\n公开页面与入口地址可达；外部模块仍需平台账号和对应权限，HTTP 状态不能代替功能验收。");
   }
 }

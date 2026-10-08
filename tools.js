@@ -9,7 +9,7 @@
  * - icon：与页面 iconSvgs 对应的图标名称
  * - healthCheck：browser 表示该内部链接只在经纪人浏览器中验证
  *
- * 九宫格始终保留 9 个位置。启用新模块时，将一个 placeholder 替换为模块配置即可。
+ * 至少保留 9 个位置，每行 3 个。新增模块时继续添加配置，剩余位置自动留白。
  */
 (function registerGuixinTools(root) {
   const tools = [

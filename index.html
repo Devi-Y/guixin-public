@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="referrer" content="no-referrer" />
     <meta name="theme-color" content="#087d4c" />
@@ -37,6 +37,7 @@
       }
 
       * { box-sizing: border-box; }
+      [hidden] { display: none !important; }
 
       html,
       body {
@@ -57,6 +58,8 @@
       }
 
       button { font: inherit; }
+      button { cursor: pointer; }
+      button, a { touch-action: manipulation; }
 
       button { -webkit-tap-highlight-color: transparent; }
 
@@ -297,6 +300,18 @@
         letter-spacing: 0.015em;
         text-align: center;
       }
+
+      .footer-actions { display: flex; justify-content: center; gap: 20px; margin-top: 8px; }
+      .footer-action { border: 0; padding: 6px 0; background: transparent; color: var(--muted); font: inherit; font-size: 12px; text-decoration: none; }
+      .footer-action:hover { color: var(--green-dark); }
+      .footer-action:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; border-radius: 3px; }
+      body.has-consent footer { padding-bottom: 90px; }
+      .settings-status { margin: 18px 0 0; color: var(--green-dark); font-size: 13px; }
+      .settings-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+      .settings-actions button { min-height: 44px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; background: #f5f8f6; color: var(--ink); font-weight: 600; }
+      .settings-actions .is-primary { border-color: var(--green-dark); background: var(--green-dark); color: #fff; }
+      .settings-actions button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+      .site-notice { position: fixed; z-index: 40; left: 50%; bottom: 24px; width: max-content; max-width: calc(100% - 32px); transform: translateX(-50%); border-radius: 12px; padding: 13px 18px; background: #243d30; color: #fff; font-size: 13px; line-height: 1.5; box-shadow: 0 8px 30px #1f232926; }
 
       .overlay {
         position: fixed;
@@ -573,9 +588,10 @@
         .brand-name { font-size: 19px; }
 
         .header-tools { min-width: 0; gap: 8px; }
+        .header-tools { flex: 1; flex-direction: column; align-items: flex-end; gap: 5px; }
 
         .tagline {
-          max-width: 130px;
+          max-width: 100%;
           overflow: hidden;
           font-size: 12px;
           text-overflow: ellipsis;
@@ -607,7 +623,7 @@
         .tool-card:nth-child(3n),
         .placeholder:nth-child(3n) { border-right: 0; }
 
-        .tool-grid > :nth-child(n + 7) { border-bottom: 0; }
+        .tool-grid > :nth-last-child(-n + 3) { border-bottom: 0; }
 
         .tool-card {
           align-items: center;
@@ -663,9 +679,6 @@
         .analytics-consent span { max-width: 165px; }
       }
 
-      @media (max-width: 380px) {
-        .tagline { display: none; }
-      }
     </style>
   </head>
   <body>
@@ -753,39 +766,46 @@
         </section>
       </main>
 
-      <footer>深圳贝壳品质工具箱</footer>
+      <footer>
+        <span>深圳贝壳品质工具箱</span>
+        <div class="footer-actions">
+          <a class="footer-action" href="./share.html">分享归心</a>
+          <button class="footer-action" type="button" data-workspace="privacy">统计设置</button>
+        </div>
+      </footer>
     </div>
+    <p class="site-notice" id="site-notice" role="status" hidden></p>
 
     <div class="overlay" id="coin-guide" hidden>
       <section class="dialog guide-dialog" role="dialog" aria-modal="true" aria-labelledby="coin-guide-title">
         <button class="close guide-close" type="button" aria-label="关闭贝壳币指南">×</button>
         <h2 id="coin-guide-title">贝壳币指南</h2>
-        <p class="guide-intro">先找明确写有“贝壳币奖励”的当期任务，再行动。</p>
+        <p class="guide-intro">从 A+ / Link 当期活动里，找明确标注“贝壳币奖励”的任务。</p>
 
         <div class="earn-grid">
           <article class="earn-item">
-            <strong>当期任务</strong>
-            <span>查看 A+、Link 的消息、任务和活动入口，优先做已标明奖励的任务。</span>
+            <strong>① 找任务</strong>
+            <span>查看消息、任务或活动，找到标注贝壳币奖励的当期任务。</span>
           </article>
           <article class="earn-item">
-            <strong>房源奖励</strong>
-            <span>关注房源维护、推广和跨店成交类活动，按当期任务要求完成。</span>
+            <strong>② 看条件</strong>
+            <span>确认适用城市、参与身份、截止时间和奖励条件。</span>
           </article>
           <article class="earn-item">
-            <strong>服务与榜单</strong>
-            <span>关注服务质量、信用或贝壳分激励，以及城市榜单活动。</span>
+            <strong>③ 按要求做</strong>
+            <span>按活动要求完成任务，保留完成记录，避免漏掉领取步骤。</span>
           </article>
           <article class="earn-item">
-            <strong>城市专项活动</strong>
-            <span>参加城市发布的培训、竞赛和阶段性运营活动，以活动页规则为准。</span>
+            <strong>④ 查发放</strong>
+            <span>按活动页的发放时间和查询入口核对到账，未到账联系活动负责人。</span>
           </article>
         </div>
 
         <div class="guide-path">
-          <strong>每天这样找</strong>
-          A+ / Link → 消息、任务或活动 → 找“贝壳币奖励” → 核对城市、身份、截止时间和奖励上限 → 完成任务
+          <strong>以当期活动规则为准</strong>
+          只有活动明确标注贝壳币奖励，才按对应规则参与。
         </div>
-        <p class="guide-note">币值和有效期会变化，以当天活动页为准。完成后可在 A+ / Link → 我的 → 个人钱包查收。</p>
+        <p class="guide-note">归心提供查找方法，不承诺具体奖励金额。奖励、有效期和领取方式以官方活动页为准。</p>
       </section>
     </div>
 
@@ -793,14 +813,36 @@
       <section class="dialog directory-dialog" role="dialog" aria-modal="true" aria-labelledby="contacts-title">
         <button class="close contacts-close" type="button" aria-label="关闭模块负责人">×</button>
         <h2 id="contacts-title">模块负责人</h2>
-        <div class="directory-list" id="contact-list"></div>
+        <div class="directory-list" id="contact-list">
+          <a class="directory-item" data-tool-id="jury" href="https://app-moma.ke.com/45a870b8-adf5-4c9c-ae84-4404c1a03ced#/" target="_top"><strong class="directory-module">争议陪审</strong><span class="directory-owner">负责人：李昊轩</span><em class="directory-status">打开模块 ↗</em></a>
+          <a class="directory-item" data-tool-id="governance" href="https://app-moma.ke.com/cmy" target="_top"><strong class="directory-module">区域共治</strong><span class="directory-owner">负责人：陈梦怡</span><em class="directory-status">打开模块 ↗</em></a>
+          <a class="directory-item" data-tool-id="supervision" href="https://app-moma.ke.com/0508ed9e-ecf3-40d3-b34c-b2fa697170e0" target="_top"><strong class="directory-module">监察反馈</strong><span class="directory-owner">负责人：陈婉瑜</span><em class="directory-status">打开模块 ↗</em></a>
+          <a class="directory-item" data-tool-id="credit-penalty" href="https://app-fly.ke.com/410011d7-21d1-4c6d-a51c-d61d6e438d11" target="_top"><strong class="directory-module">信用处罚查询</strong><span class="directory-owner">负责人：李昊轩</span><em class="directory-status">打开模块 ↗</em></a>
+          <a class="directory-item" data-tool-id="complaint-dashboard" href="https://app-fly.ke.com/aec0f833-f638-4404-82bf-9fa66d71c947" target="_top"><strong class="directory-module">链家客诉看板</strong><span class="directory-owner">负责人：陈瑜</span><em class="directory-status">打开模块 ↗</em></a>
+          <a class="directory-item" data-tool-id="beilian-quality" href="https://app-moma.ke.com/sz" target="_top"><strong class="directory-module">贝联客诉看板</strong><span class="directory-owner">负责人：胡佳伟</span><em class="directory-status">打开模块 ↗</em></a>
+        </div>
       </section>
     </div>
 
-    <script src="./tools.js?v=20260903-2"></script>
-    <script src="./analytics-config.js?v=20260907-3"></script>
-    <script src="./analytics.js?v=20260907-2"></script>
-    <script src="./auth.js?v=20260907-2"></script>
+    <div class="overlay" id="privacy-settings" hidden>
+      <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+        <button class="close privacy-close" type="button" aria-label="关闭统计设置">×</button>
+        <h2 id="privacy-title">统计设置</h2>
+        <p class="guide-intro">同意后记录访问、模块点击、设备类型和来源域名，帮助改善归心。</p>
+        <p class="guide-note">未登录时使用随机访客编号；完成企业微信授权后，记录可关联企业微信姓名。归心统计不收集手机号、IP、完整网址或设备指纹，访问记录保留 90 天。</p>
+        <p class="settings-status" id="privacy-current-status" role="status">统计未开启</p>
+        <div class="settings-actions">
+          <button class="is-primary" id="enable-analytics" type="button">同意统计</button>
+          <button id="disable-analytics" type="button">关闭统计</button>
+        </div>
+        <p class="guide-note">关闭后停止发送新的记录，不影响模块使用。</p>
+      </section>
+    </div>
+
+    <script src="./tools.js?v=20261008-1"></script>
+    <script src="./analytics-config.js?v=20261008-1"></script>
+    <script src="./analytics.js?v=20261008-1"></script>
+    <script src="./auth.js?v=20261008-1"></script>
     <script>
       const iconSvgs = {
         "user-round": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>',
@@ -867,8 +909,10 @@
       }
 
       const configuredTools = Array.isArray(window.GUIXIN_TOOLS) ? window.GUIXIN_TOOLS : [];
-      if (configuredTools.length === 9) {
-        toolGrid.replaceChildren(...configuredTools.map(createToolElement));
+      if (configuredTools.length) {
+        const gridTools = [...configuredTools];
+        while (gridTools.length < 9 || gridTools.length % 3) gridTools.push({ kind: "placeholder" });
+        toolGrid.replaceChildren(...gridTools.map(createToolElement));
       }
 
       const workspaces = {
@@ -878,13 +922,16 @@
         contacts: {
           type: "contacts",
         },
+        privacy: { type: "privacy" },
       };
 
       const coinGuide = document.getElementById("coin-guide");
       const contactsDirectory = document.getElementById("contacts-directory");
+      const privacySettings = document.getElementById("privacy-settings");
       const site = document.querySelector(".site");
       const guideClose = document.querySelector(".guide-close");
       const contactsClose = document.querySelector(".contacts-close");
+      const privacyClose = document.querySelector(".privacy-close");
       const contactList = document.getElementById("contact-list");
       let activeOverlay = null;
       let activeTrigger = null;
@@ -897,6 +944,7 @@
         site.setAttribute("inert", "");
         site.setAttribute("aria-hidden", "true");
         document.body.classList.add("has-dialog");
+        document.querySelector(".analytics-consent")?.setAttribute("inert", "");
       }
 
       function closeDialog() {
@@ -908,11 +956,13 @@
         site.removeAttribute("inert");
         site.removeAttribute("aria-hidden");
         document.body.classList.remove("has-dialog");
+        document.querySelector(".analytics-consent")?.removeAttribute("inert");
         trigger?.focus();
       }
 
       function renderContacts() {
         const contacts = Array.isArray(window.GUIXIN_CONTACTS) ? window.GUIXIN_CONTACTS : [];
+        if (!contacts.length || !configuredTools.length) return;
         const toolsById = new Map(configuredTools.map((tool) => [tool.id, tool]));
         const rows = contacts.map((contact) => {
           const linkedTool = toolsById.get(contact.moduleId);
@@ -922,6 +972,7 @@
           if (canOpen) {
             row.href = linkedTool.href;
             row.target = "_top";
+            row.dataset.toolId = linkedTool.id;
           }
 
           const moduleName = document.createElement("strong");
@@ -959,6 +1010,8 @@
             return;
           }
 
+          if (workspace.type === "privacy") openDialog(privacySettings, privacyClose, button);
+
         });
       });
       guideClose.addEventListener("click", closeDialog);
@@ -966,13 +1019,26 @@
         if (event.target === coinGuide) closeDialog();
       });
       contactsClose.addEventListener("click", closeDialog);
+      privacyClose.addEventListener("click", closeDialog);
+      privacySettings.addEventListener("click", (event) => {
+        if (event.target === privacySettings) closeDialog();
+      });
+      document.addEventListener("guixin:close-dialog", closeDialog);
       contactsDirectory.addEventListener("click", (event) => {
         if (event.target === contactsDirectory) closeDialog();
       });
       document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape" || !activeOverlay) return;
-        event.preventDefault();
-        closeDialog();
+        if (!activeOverlay) return;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeDialog();
+        } else if (event.key === "Tab") {
+          const focusable = [...activeOverlay.querySelectorAll('button, a[href], input, select, [tabindex="0"]')].filter((element) => !element.hidden && !element.disabled);
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        }
       });
     </script>
   </body>
