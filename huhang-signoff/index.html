@@ -45,7 +45,16 @@ function chacha20Xor(key,nonce,data) {
    for(let i=0;i<raw.length;i++)buf[i]=raw.charCodeAt(i);
    const html=new TextDecoder('utf-8',{fatal:true}).decode(chacha20Xor(key,nonce,buf));
    if(!html.startsWith('<!doctype html>')||!html.includes("const DATA=")||!html.includes('id="updateCsvButton"'))throw Error('密钥无效或数据不完整');
-   document.open();document.write(html);document.close();
+   const frame=document.createElement('iframe');
+   frame.title='护航者计划｜店东管理规定签收分析';
+   frame.setAttribute('referrerpolicy','no-referrer');
+   frame.style.cssText='position:fixed;inset:0;width:100vw;height:100dvh;min-height:100vh;border:0;background:#f4f7fb;z-index:9999;display:block';
+   frame.srcdoc=html;
+   document.body.appendChild(frame);
+   document.querySelector('.panel').style.display='none';
+   document.body.style.display='block';
+   document.body.style.margin='0';
+   document.body.style.overflow='hidden';
   }catch(e){msg.textContent='无法解锁：'+e.message;unlock.hidden=false;}
  }
  const k=new URLSearchParams(location.hash.slice(1)).get('k');
